@@ -23,7 +23,6 @@ Table of Contents
 - [Features](#features)
 - [Prerequisites](#prerequisites)
 - [Getting Started](#getting-started)
-- [Obtaining API Keys](#obtaining-api-keys)
 - [Project Structure](#project-structure)
 - [List of Packages](#list-of-packages)
 - [Useful Tools and Resources](#useful-tools-and-resources)
@@ -37,9 +36,8 @@ Table of Contents
     - [ES6](#-es6-cheatsheet)
     - [JavaScript Date](#-javascript-date-cheatsheet)
     - [Mongoose Cheatsheet](#mongoose-cheatsheet)
-- [Deployment](#deployment)
 - [Docker](#docker)
-- [Changelog](#changelog)
+- [Obtaining API Keys](#obtaining-api-keys)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -108,183 +106,6 @@ server. Once installed, instead of `node app.js` use `nodemon app.js`. It will
 save you a lot of time in the long run, because you won't need to manually
 restart the server each time you make a small change in code. To install, run
 `sudo npm install -g nodemon`.
-
-Obtaining API Keys
-------------------
-
-To use any of the included APIs or OAuth authentication methods, you will need
-to obtain appropriate credentials: Client ID, Client Secret, API Key, or
-Username & Password. You will need to go through each provider to generate new
-credentials.
-
-**Hackathon Starter 2.0 Update:** I have included dummy keys and passwords for
-all API examples to get you up and running even faster. But don't forget to update
-them with *your credentials* when you are ready to deploy an app.
-
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/1000px-Google_2015_logo.svg.png" width="200">
-
-- Visit <a href="https://cloud.google.com/console/project" target="_blank">Google Cloud Console</a>
-- Click on the **Create Project** button
-- Enter *Project Name*, then click on **Create** button
-- Then click on *APIs & auth* in the sidebar and select *API* tab
-- Click on **Google+ API** under *Social APIs*, then click **Enable API**
-- Next, under *APIs & auth* in the sidebar click on *Credentials* tab
-- Click on **Create new Client ID** button
-- Select *Web Application* and click on **Configure Consent Screen**
-- Fill out the required fields then click on **Save**
-- In the *Create Client ID* modal dialog:
- - **Application Type**: Web Application
- - **Authorized Javascript origins**: http://localhost:3000
- - **Authorized redirect URI**: http://localhost:3000/auth/google/callback
-- Click on **Create Client ID** button
-- Copy and paste *Client ID* and *Client secret* keys into `.env`
-
-**Note:** When you ready to deploy to production don't forget to
-add your new url to *Authorized Javascript origins* and *Authorized redirect URI*,
-e.g. `http://my-awesome-app.herokuapp.com` and
-`http://my-awesome-app.herokuapp.com/auth/google/callback` respectively.
-The same goes for other providers.
-
-<hr>
-
-<img src="http://www.doit.ba/img/facebook.jpg" width="200">
-
-- Visit <a href="https://developers.facebook.com/" target="_blank">Facebook Developers</a>
-- Click **My Apps**, then select **Add a New App* from the dropdown menu
-- Select **Website** platform and enter a new name for your app
-- Click on the **Create New Facebook App ID** button
-- Choose a **Category** that best describes your app
-- Click on **Create App ID** button
-- In the upper right corner click on **Skip Quick Start**
-- Copy and paste *App ID* and *App Secret* keys into `.env`
- - **Note:** *App ID* is **clientID**, *App Secret* is **clientSecret**
-- Click on the *Settings* tab in the left nav, then click on **+ Add Platform**
-- Select **Website**
-- Enter `http://localhost:3000` under *Site URL*
-
-**Note:** After a successful sign in with Facebook, a user will be redirected back to home page with appended hash `#_=_` in the URL. It is *not* a bug. See this [Stack Overflow](https://stackoverflow.com/questions/7131909/facebook-callback-appends-to-return-url) discussion for ways to handle it.
-
-<hr>
-
-<img src="https://github.global.ssl.fastly.net/images/modules/logos_page/GitHub-Logo.png" width="200">
-
-- Go to <a href="https://github.com/settings/profile" target="_blank">Account Settings</a>
-- Select **Applications** from the sidebar
-- Then inside **Developer applications** click on **Register new application**
-- Enter *Application Name* and *Homepage URL*
-- For *Authorization Callback URL*: http://localhost:3000/auth/github/callback
-- Click **Register application**
-- Now copy and paste *Client ID* and *Client Secret* keys into `.env` file
-
-<hr>
-
-<img src="https://g.twimg.com/ios_homescreen_icon.png" width="90">
-
-- Sign in at <a href="https://apps.twitter.com/" target="_blank">https://apps.twitter.com</a>
-- Click **Create a new application**
-- Enter your application name, website and description
-- For **Callback URL**: http://127.0.0.1:3000/auth/twitter/callback
-- Go to **Settings** tab
-- Under *Application Type* select **Read and Write** access
-- Check the box **Allow this application to be used to Sign in with Twitter**
-- Click **Update this Twitter's applications settings**
-- Copy and paste *Consumer Key* and *Consumer Secret* keys into `.env` file
-
-<hr>
-
-<img src="http://www.danpontefract.com/wp-content/uploads/2014/02/logo-linkedin.png" width="200">
-
-- Sign in at <a href="https://developer.linkedin.com/" target="_blank">LinkedIn Developer Network</a>
-- From the account name dropdown menu select **API Keys**
- - *It may ask you to sign in once again*
-- Click **+ Add New Application** button
-- Fill out all the *required* fields
- - **OAuth 2.0 Redirect URLs**: http://localhost:3000/auth/linkedin/callback
- - **JavaScript API Domains**: http://localhost:3000
-- For **Default Application Permissions** make sure at least the following is checked:
- - `r_basicprofile`
-- Finish by clicking **Add Application** button
-- Copy and paste *API Key* and *Secret Key* keys into `.env` file
- - *API Key* is your **clientID**
- - *Secret Key* is your **clientSecret**
-
-<hr>
-
-<img src="https://stripe.com/img/about/logos/logos/black@2x.png" width="200">
-
-- <a href="https://stripe.com/" target="_blank">Sign up</a> or log into your <a href="https://manage.stripe.com" target="_blank">dashboard</a>
-- Click on your profile and click on Account Settings
-- Then click on **API Keys**
-- Copy the **Secret Key**. and add this into `.env` file
-
-<hr>
-
-<img src="https://pixabay.com/static/uploads/photo/2015/05/26/09/37/paypal-784404_960_720.png" width="200">
-
-- Visit <a href="https://developer.paypal.com" target="_blank">PayPal Developer</a>
-- Log in to your PayPal account
-- Click **Applications > Create App** in the navigation bar
-- Enter *Application Name*, then click **Create app**
-- Copy and paste *Client ID* and *Secret* keys into `.env` file
-- *App ID* is **client_id**, *App Secret* is **client_secret**
-- Change **host** to api.paypal.com if you want to test against production and use the live credentials
-
-<hr>
-
-<img src="http://33.media.tumblr.com/ffaf0075be879b3ab0b87f0b8bcc6814/tumblr_inline_n965bkOymr1qzxhga.png" width="200">
-
-- Go to <a href="https://developer.foursquare.com" target="_blank">Foursquare for Developers</a>
-- Click on **My Apps** in the top menu
-- Click the **Create A New App** button
-- Enter *App Name*, *Welcome page url*,
-- For **Redirect URI**: http://localhost:3000/auth/foursquare/callback
-- Click **Save Changes**
-- Copy and paste *Client ID* and *Client Secret* keys into `.env` file
-
-<hr>
-
-<img src="http://img4.wikia.nocookie.net/__cb20130520163346/logopedia/images/8/8d/Tumblr_logo_by_x_1337_x-d5ikwpp.png" width="200">
-
-- Go to <a href="http://www.tumblr.com/oauth/apps" target="_blank">http://www.tumblr.com/oauth/apps</a>
-- Once signed in, click **+Register application**
-- Fill in all the details
-- For **Default Callback URL**: `http://localhost:3000/auth/tumblr/callback`
-- Click **✔Register**
-- Copy and paste *OAuth consumer key* and *OAuth consumer secret* keys into `.env` file
-
-<hr>
-
-<img src="http://www.technologytell.com/gaming/files/2012/01/steam_logo.jpg" width="200">
-
-- Go to <a href="http://steamcommunity.com/dev/apikey" target="_blank">http://steamcommunity.com/dev/apikey</a>
-- Sign in with your existing Steam account
-- Enter your *Domain Name*, then and click **Register**
-- Copy and paste *Key* into `.env` file
-
-<hr>
-
-<img src="https://sendgrid.com/brand/sg-logo-300.png" width="200">
-
-- Go to <a href="https://sendgrid.com/user/signup" target="_blank">https://sendgrid.com/user/signup</a>
-- Sign up and **confirm** your account via the *activation email*
-- Then enter your SendGrid *Username* and *Password* into `.env` file
-
-<hr>
-
-<img src="https://raw.github.com/mailgun/media/master/Mailgun_Primary.png" width="200">
-
-- Go to <a href="http://www.mailgun.com" target="_blank">http://www.mailgun.com</a>
-- Sign up and add your *Domain Name*
-- From the domain overview, copy and paste the default SMTP *Login* and *Password* into `.env` file
-
-<hr>
-
-<img src="https://s3.amazonaws.com/ahoy-assets.twilio.com/global/images/wordmark.svg" width="200">
-
-- Go to <a href="https://www.twilio.com/try-twilio" target="_blank">https://www.twilio.com/try-twilio</a>
-- Sign up for an account.
-- Once logged into the dashboard, expand the link 'show api credentials'
-- Copy your Account Sid and Auth Token
 
 Project Structure
 -----------------
@@ -477,15 +298,6 @@ Windows users, read [Install MongoDB on Windows](https://docs.mongodb.org/manual
 [mLab](https://mongolab.com/) or [Compose](https://www.compose.io/) instead
 of downloading and installing MongoDB locally. You will only need to update database credentials
 in `.env` file.
-
-### I get an error when I deploy my app, why?
-Chances are you haven't changed the *Database URI* in `.env`. If `MONGODB`/`MONGOLAB_URI` is
-set to `localhost`, it will only work on your machine as long as MongoDB is
-running. When you deploy to Heroku, OpenShift or some other provider, you will not have MongoDB
-running on `localhost`. You need to create an account with [mLab](https://mongolab.com/)
-or [Compose](https://www.compose.io/), then create a free tier database.
-See [Deployment](#deployment) for more information on how to setup an account
-and a new database step-by-step with mLab.
 
 ### Why Pug (Jade) instead of Handlebars?
 When I first started this project I didn't have any experience with Handlebars. Since then I have worked on Ember.js apps and got myself familiar with the Handlebars syntax. While it is true Handlebars is easier, because it looks like good old HTML, I have no regrets picking Jade over Handlebars. First off, it's the default template engine in Express, so someone who has built Express apps in the past already knows it. Secondly, I find `extends` and `block` to be indispensable, which as far as I know, Handlebars does not have out of the box. And lastly, subjectively speaking, Jade looks much cleaner and shorter than Handlebars, or any non-HAML style for that matter.
@@ -1172,521 +984,182 @@ docker-compose up web
 To view the app, find your docker ip address + port 3000 ( this will typically be http://192.168.99.100:3000/ ).
 
 
-Deployment
-----------
-
-Once you are ready to deploy your app, you will need to create an account with
-a cloud platform to host it. These are not the only choices, but they are my top
-picks. From my experience, **Heroku** is the easiest to get started with, it will
-automatically restart your Node.js process when it crashes, zero-downtime
-deployments and custom domain support on free accounts. Additionally, you can
-create an account with **mLab** and then pick one of the *4* providers below.
-Again, there are plenty of other choices and you are not limited to just the ones
-listed below.
-
-### 1-Step Deployment with Heroku
-
-<img src="http://blog.exadel.com/wp-content/uploads/2013/10/heroku-Logo-1.jpg" width="200">
-
-- Download and install [Heroku Toolbelt](https://toolbelt.heroku.com/)
-- In terminal, run `heroku login` and enter your Heroku credentials
-- From *your app* directory run `heroku create`
-- Run `heroku addons:create mongolab`.  This will set up the mLab add-on and configure the `MONGOLAB_URI` environment variable in your Heroku app for you.
-- Lastly, do `git push heroku master`.  Done!
-
-**Note:** To install Heroku add-ons your account must be verified.
-
----
-
-<img src="http://i.imgur.com/7KnCa5a.png" width="200">
-
-- Open [mlab.com](https://mlab.com) website
-- Click the yellow **Sign up** button
-- Fill in your user information then hit **Create account**
-- From the dashboard, click on **:zap:Create new** button
-- Select **any** cloud provider (I usually go with AWS)
-- Under *Plan* click on **Single-node (development)** tab and select **Sandbox** (it's free)
- - *Leave MongoDB version as is - `2.4.x`*
-- Enter *Database name** for your web app
-- Then click on **:zap:Create new MongoDB deployment** button
-- Now, to access your database you need to create a DB user
-- Click to the recently created database
-- You should see the following message:
- - *A database user is required to connect to this database.* **Click here** *to create a new one.*
-- Click the link and fill in **DB Username** and **DB Password** fields
-- Finally, in `.env` instead of `mongodb://localhost:27017/test`, use the following URI with your credentials:
- - `db: 'mongodb://USERNAME:PASSWORD@ds027479.mongolab.com:27479/DATABASE_NAME'`
-
-**Note:** As an alternative to mLab, there is also [Compose](https://www.compose.io/).
-
-<img src="http://www.opencloudconf.com/images/openshift_logo.png" width="200">
-
-- First, install this Ruby gem: `sudo gem install rhc` :gem:
-- Run `rhc login` and enter your OpenShift credentials
-- From your app directory run `rhc app create MyApp nodejs-0.10`
- - **Note:** *MyApp* is the name of your app (no spaces)
-- Once that is done, you will be provided with **URL**, **SSH** and **Git Remote** links
-- Visit provided **URL** and you should see the *Welcome to your Node.js application on OpenShift* page
-- Copy and and paste **Git Remote** into `git remote add openshift YOUR_GIT_REMOTE`
-- Before you push your app, you need to do a few modifications to your code
-
-Add these two lines to `app.js`, just place them anywhere before `app.listen()`:
-```js
-var IP_ADDRESS = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
-var PORT = process.env.OPENSHIFT_NODEJS_PORT || 8080;
-```
-
-Then change `app.listen()` to:
-```js
-app.listen(PORT, IP_ADDRESS,() => {
-  console.log(`Express server listening on port ${PORT} in ${app.settings.env} mode`);
-});
-```
-Add this to `package.json`, after *name* and *version*. This is necessary because, by default, OpenShift looks for `server.js` file. And by specifying `supervisor app.js` it will automatically restart the server when node.js process crashes.
-
-```js
-"main": "app.js",
-"scripts": {
-  "start": "supervisor app.js"
-},
-```
+Obtaining API Keys
+------------------
+
+To use any of the included APIs or OAuth authentication methods, you will need
+to obtain appropriate credentials: Client ID, Client Secret, API Key, or
+Username & Password. You will need to go through each provider to generate new
+credentials.
+
+**Hackathon Starter 2.0 Update:** I have included dummy keys and passwords for
+all API examples to get you up and running even faster. But don't forget to update
+them with *your credentials* when you are ready to deploy an app.
+
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/1000px-Google_2015_logo.svg.png" width="200">
+
+- Visit <a href="https://cloud.google.com/console/project" target="_blank">Google Cloud Console</a>
+- Click on the **Create Project** button
+- Enter *Project Name*, then click on **Create** button
+- Then click on *APIs & auth* in the sidebar and select *API* tab
+- Click on **Google+ API** under *Social APIs*, then click **Enable API**
+- Next, under *APIs & auth* in the sidebar click on *Credentials* tab
+- Click on **Create new Client ID** button
+- Select *Web Application* and click on **Configure Consent Screen**
+- Fill out the required fields then click on **Save**
+- In the *Create Client ID* modal dialog:
+ - **Application Type**: Web Application
+ - **Authorized Javascript origins**: http://localhost:3000
+ - **Authorized redirect URI**: http://localhost:3000/auth/google/callback
+- Click on **Create Client ID** button
+- Copy and paste *Client ID* and *Client secret* keys into `.env`
+
+**Note:** When you ready to deploy to production don't forget to
+add your new url to *Authorized Javascript origins* and *Authorized redirect URI*,
+e.g. `http://my-awesome-app.herokuapp.com` and
+`http://my-awesome-app.herokuapp.com/auth/google/callback` respectively.
+The same goes for other providers.
+
+<hr>
+
+<img src="http://www.doit.ba/img/facebook.jpg" width="200">
+
+- Visit <a href="https://developers.facebook.com/" target="_blank">Facebook Developers</a>
+- Click **My Apps**, then select **Add a New App* from the dropdown menu
+- Select **Website** platform and enter a new name for your app
+- Click on the **Create New Facebook App ID** button
+- Choose a **Category** that best describes your app
+- Click on **Create App ID** button
+- In the upper right corner click on **Skip Quick Start**
+- Copy and paste *App ID* and *App Secret* keys into `.env`
+ - **Note:** *App ID* is **clientID**, *App Secret* is **clientSecret**
+- Click on the *Settings* tab in the left nav, then click on **+ Add Platform**
+- Select **Website**
+- Enter `http://localhost:3000` under *Site URL*
+
+**Note:** After a successful sign in with Facebook, a user will be redirected back to home page with appended hash `#_=_` in the URL. It is *not* a bug. See this [Stack Overflow](https://stackoverflow.com/questions/7131909/facebook-callback-appends-to-return-url) discussion for ways to handle it.
+
+<hr>
+
+<img src="https://github.global.ssl.fastly.net/images/modules/logos_page/GitHub-Logo.png" width="200">
+
+- Go to <a href="https://github.com/settings/profile" target="_blank">Account Settings</a>
+- Select **Applications** from the sidebar
+- Then inside **Developer applications** click on **Register new application**
+- Enter *Application Name* and *Homepage URL*
+- For *Authorization Callback URL*: http://localhost:3000/auth/github/callback
+- Click **Register application**
+- Now copy and paste *Client ID* and *Client Secret* keys into `.env` file
+
+<hr>
+
+<img src="https://g.twimg.com/ios_homescreen_icon.png" width="90">
+
+- Sign in at <a href="https://apps.twitter.com/" target="_blank">https://apps.twitter.com</a>
+- Click **Create a new application**
+- Enter your application name, website and description
+- For **Callback URL**: http://127.0.0.1:3000/auth/twitter/callback
+- Go to **Settings** tab
+- Under *Application Type* select **Read and Write** access
+- Check the box **Allow this application to be used to Sign in with Twitter**
+- Click **Update this Twitter's applications settings**
+- Copy and paste *Consumer Key* and *Consumer Secret* keys into `.env` file
+
+<hr>
+
+<img src="http://www.danpontefract.com/wp-content/uploads/2014/02/logo-linkedin.png" width="200">
+
+- Sign in at <a href="https://developer.linkedin.com/" target="_blank">LinkedIn Developer Network</a>
+- From the account name dropdown menu select **API Keys**
+ - *It may ask you to sign in once again*
+- Click **+ Add New Application** button
+- Fill out all the *required* fields
+ - **OAuth 2.0 Redirect URLs**: http://localhost:3000/auth/linkedin/callback
+ - **JavaScript API Domains**: http://localhost:3000
+- For **Default Application Permissions** make sure at least the following is checked:
+ - `r_basicprofile`
+- Finish by clicking **Add Application** button
+- Copy and paste *API Key* and *Secret Key* keys into `.env` file
+ - *API Key* is your **clientID**
+ - *Secret Key* is your **clientSecret**
+
+<hr>
+
+<img src="https://stripe.com/img/about/logos/logos/black@2x.png" width="200">
 
-- Finally, you can now push your code to OpenShift by running `git push -f openshift master`
- - **Note:** The first time you run this command, you have to pass `-f` (force) flag because OpenShift creates a dummy server with the welcome page when you create a new Node.js app. Passing `-f` flag will override everything with your *Hackathon Starter* project repository. **Do not** run `git pull` as it will create unnecessary merge conflicts.
-- And you are done!
+- <a href="https://stripe.com/" target="_blank">Sign up</a> or log into your <a href="https://manage.stripe.com" target="_blank">dashboard</a>
+- Click on your profile and click on Account Settings
+- Then click on **API Keys**
+- Copy the **Secret Key**. and add this into `.env` file
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Windows_Azure_logo.png" width="200">
+<hr>
 
-- Login to [Windows Azure Management Portal](https://manage.windowsazure.com/)
-- Click the **+ NEW** button on the bottom left of the portal
-- Click **COMPUTE**, then **WEB APP**, then **QUICK CREATE**
-- Enter a name for **URL** and select the datacenter **REGION** for your web site
-- Click on **CREATE WEB APP** button
-- Once the web site status changes to *Running*, click on the name of the web site to access the Dashboard
-- At the bottom right of the Quickstart page, select **Set up a deployment from source control**
-- Select **Local Git repository** from the list, and then click the arrow
-- To enable Git publishing, Azure will ask you to create a user name and password
-- Once the Git repository is ready, you will be presented with a **GIT URL**
-- Inside your *Hackathon Starter* directory, run `git remote add azure [Azure Git URL]`
-- To push your changes simply run `git push azure master`
- - **Note:** *You will be prompted for the password you created earlier*
-- On **Deployments** tab of your Windows Azure Web App, you will see the deployment history
+<img src="https://pixabay.com/static/uploads/photo/2015/05/26/09/37/paypal-784404_960_720.png" width="200">
 
-------
+- Visit <a href="https://developer.paypal.com" target="_blank">PayPal Developer</a>
+- Log in to your PayPal account
+- Click **Applications > Create App** in the navigation bar
+- Enter *Application Name*, then click **Create app**
+- Copy and paste *Client ID* and *Secret* keys into `.env` file
+- *App ID* is **client_id**, *App Secret* is **client_secret**
+- Change **host** to api.paypal.com if you want to test against production and use the live credentials
 
+<hr>
 
-# IBM Bluemix Cloud Platform
+<img src="http://33.media.tumblr.com/ffaf0075be879b3ab0b87f0b8bcc6814/tumblr_inline_n965bkOymr1qzxhga.png" width="200">
 
-1. Create a Bluemix Account
+- Go to <a href="https://developer.foursquare.com" target="_blank">Foursquare for Developers</a>
+- Click on **My Apps** in the top menu
+- Click the **Create A New App** button
+- Enter *App Name*, *Welcome page url*,
+- For **Redirect URI**: http://localhost:3000/auth/foursquare/callback
+- Click **Save Changes**
+- Copy and paste *Client ID* and *Client Secret* keys into `.env` file
 
-    [Sign up](https://console.ng.bluemix.net/registration/?target=%2Fdashboard%2Fapps) for Bluemix, or use an existing account.  
+<hr>
 
-1. Download and install the [Cloud Foundry CLI](https://github.com/cloudfoundry/cli) to push your applications to Bluemix.
+<img src="http://img4.wikia.nocookie.net/__cb20130520163346/logopedia/images/8/8d/Tumblr_logo_by_x_1337_x-d5ikwpp.png" width="200">
 
-1. Create a `manifest.yml` file in the root of your application.
-  ```
-  applications:
-  - name:      <your-app-name>
-    host:      <your-app-host>
-    memory:    128M
-    services:
-    - myMongo-db-name
-  ```
+- Go to <a href="http://www.tumblr.com/oauth/apps" target="_blank">http://www.tumblr.com/oauth/apps</a>
+- Once signed in, click **+Register application**
+- Fill in all the details
+- For **Default Callback URL**: `http://localhost:3000/auth/tumblr/callback`
+- Click **✔Register**
+- Copy and paste *OAuth consumer key* and *OAuth consumer secret* keys into `.env` file
 
-  The host you use will determinate your application url initially, e.g. `<host>.mybluemix.net`.  
-  The service name 'myMongo-db-name' is a declaration of your MongoDB service.  If you are using other services like Watson for example, then you would declare them the same way.
+<hr>
 
-1. Connect and login to Bluemix via the Cloud-foundry CLI
-  ```
-  $ cf login -a https://api.ng.bluemix.net
-  ```
+<img src="http://www.technologytell.com/gaming/files/2012/01/steam_logo.jpg" width="200">
 
-1. Create a [MongoDB service](https://www.ng.bluemix.net/docs/#services/MongoDB/index.html#MongoDB)
-  ```
-  $ cf create-service mongodb 100 [your-service-name]
-  ```
-  **Note:** this is a free and experiment verion of MongoDB instance.  
-  Use the MongoDB by Compose instance for production applications:
-  ```
-  $ cf create-service compose-for-mongodb Standard [your-service-name]'
-  ```
+- Go to <a href="http://steamcommunity.com/dev/apikey" target="_blank">http://steamcommunity.com/dev/apikey</a>
+- Sign in with your existing Steam account
+- Enter your *Domain Name*, then and click **Register**
+- Copy and paste *Key* into `.env` file
 
+<hr>
 
-1. Push the application
+<img src="https://sendgrid.com/brand/sg-logo-300.png" width="200">
 
-    ```
-    $ cf push
-    ```
-    ```
-    $ cf env <your-app-name >
-    (To view the *environment variables* created for your application)
+- Go to <a href="https://sendgrid.com/user/signup" target="_blank">https://sendgrid.com/user/signup</a>
+- Sign up and **confirm** your account via the *activation email*
+- Then enter your SendGrid *Username* and *Password* into `.env` file
 
-    ```
+<hr>
 
-**Done**, now go to the staging domain(`<host>.mybluemix.net`.) and see your app running.  
+<img src="https://raw.github.com/mailgun/media/master/Mailgun_Primary.png" width="200">
 
-[Cloud Foundry Commands](https://console.ng.bluemix.net/docs/cli/reference/bluemix_cli/index.html)  
-[More Bluemix samples](https://ibm-bluemix.github.io/)  
-[Simple ToDo app in a programming language of your choice](https://github.com/IBM-Bluemix/todo-apps)  
+- Go to <a href="http://www.mailgun.com" target="_blank">http://www.mailgun.com</a>
+- Sign up and add your *Domain Name*
+- From the domain overview, copy and paste the default SMTP *Login* and *Password* into `.env` file
 
+<hr>
 
+<img src="https://s3.amazonaws.com/ahoy-assets.twilio.com/global/images/wordmark.svg" width="200">
 
-## IBM Watson
-Be sure to check out the full list of Watson services to forwarder enhance your application functionality with a little effort. Watson services are easy to get going, it is simply an RESTful API call. Here is an example of a [Watson Toner Analyzer](https://tone-analyzer-demo.mybluemix.net/) to understand the emotional context of a piece of text that you send to Watson.
-
-
-
-### Watson catalog of services     
-
-**<img src="https://kpprod1.alchemyapi.com/images/alchemy_logo_24.png" width="25"> AlchemyAPI** - An AlchemyAPI service that analyzes your unstructured text and image content.      
-
-**<img src="http://csbmixbroker.mybluemix.net/commerce_24.png" width="25"> Cognitive Commerce** - Cognitive Commerce is a service provided by Cognitive Scale.  
-
-**<img src="http://csbmixbroker.mybluemix.net/graph_24.png" width="25"> Cognitive Graph** - Cognitive Graph is a service provided by Cognitive Scale.  
-
-**<img src="http://csbmixbroker.mybluemix.net/insights_24.png" width="25"> Cognitive Insights** - Cognitive Insights™ is a service provided by Cognitive Scale.  
-
-**<img src="https://wbi.mybluemix.net/icons/conversation.svg?version=2" width="25"> Conversation** - 	Add a natural language interface to your application to automate interactions with your end users. Common applications include virtual agents and chat bots that can integrate and communicate on any channel or device.  
-
-**<img src="https://wbi.mybluemix.net/icons/discovery.svg" width="25"> Discovery** - Add a cognitive search and content analytics engine to applications.  
-
-**<img src="https://wbi.mybluemix.net/icons/document-conversion.svg?version=2" width="25"> Document Conversion** - Converts a HTML, PDF, or Microsoft Word™ document into a normalized HTML, plain text, or a set of JSON-formatted Answer units.  
-
-**<img src="https://wbi.mybluemix.net/icons/language-translator.svg?version=4" width="20" width="25"> Language Translator** - Translate text from one language to another for specific domains.
-
-**<img src="https://wbi.mybluemix.net/icons/natural-language-classifier.svg?version=2" width="25"> Natural Language Classifier** - Natural Language Classifier performs natural language classification on question texts. A user would be able to train their data and the predict the appropriate class for a input question.  
-
-**<img src="https://wbi.mybluemix.net/icons/personality-insights.svg?version=2" width="25"> Personality Insights** - The Watson Personality Insights derives insights from transactional and social media data to identify psychological traits.  
-
-**<img src="https://wbi.mybluemix.net/icons/retrieve-and-rank.svg?version=2" width="25"> Retrieve and Rank** - Add machine learning enhanced search capabilities to your application.   
-
-**<img src="https://wbi.mybluemix.net/icons/speech-to-text.svg?version=2" width="25"> Speech to Text** - Low-latency, streaming transcription.  
-
-**<img src="https://wbi.mybluemix.net/icons/text-to-speech.svg?version=2" width="25"> Text to Speech** - Synthesizes natural-sounding speech from text.  
-
-**<img src="https://wbi.mybluemix.net/icons/tone-analyzer.svg?version=2" width="25"> Tone Analyzer** - Tone Analyzer uses linguistic analysis to detect three types of tones from communications: emotion, social, and language. This insight can then be used to drive high impact communications.  
-
-**<img src="https://wbi.mybluemix.net/icons/retrieve-and-rank.svg?version=2" width="25" > Tradeoff Analytics** - Helps make better choices under multiple conflicting goals. Combines smart visualization and recommendations for tradeoff exploration.    
-
-**<img src="https://kpprod1.alchemyapi.com/images/vis_rec.svg" width="25"> Visual Recognition** - Find meaning in visual content! Analyze images for scenes, objects, faces, and other content. Choose a default model off the shelf, or create your own custom classifier. Find similar images within a collection. Develop smart applications that analyze the visual content of images or video frames to understand what is happening in a scene.  
-
-
-
-[Click here](https://www.ibm.com/watson/developercloud/services-catalog.html) for live demos of each Watson service.
-
-
----
-
-<img src="https://avatars2.githubusercontent.com/u/2810941?v=3&s=64" width="64" align="left">
-
-# Google Cloud Platform
-
-- [Download and install Node.js](https://nodejs.org/)
-- [Select or create](https://console.cloud.google.com/project) a Google Cloud Platform Console project
-- [Enable billing](https://support.google.com/cloud/answer/6293499#enable-billing) for your project (there's a $300 free trial)
-- Install and initialize the [Google Cloud SDK](https://cloud.google.com/sdk/docs/quickstarts)
-- Create an `app.yaml` file at the root of your `hackathon-starter` folder with the following contents:
-
-    ```yaml
-    runtime: nodejs
-    vm: true
-    manual_scaling:
-      instances: 1
-    ```
-- Make sure you've set `MONGODB_URI` or `MONGOLAB_URI` in `.env.example`
-- Run the following command to deploy the `hackathon-starter` app:
-
-    ```bash
-    gcloud app deploy
-    ```
-- [Monitor your deployed app](https://console.cloud.google.com/appengine) in the Cloud Console
-- [View the logs](https://console.cloud.google.com/logs/viewer) for your app in the Cloud Console
-
-Changelog
----------
-
-### 4.3.0 (November 6, 2016)
-- [Added new theme](http://demos.creative-tim.com/get-shit-done/index.html) by Creative Tim (Thanks @conacelelena)
-- Added ESLint configuration to *package.json*
-- Added *yarn.lock* (Thanks @niallobrien)
-- Added **express-status-monitor** (to see it in action: `/status`)
-- Added missing error handling checks (Thanks @dskrepps)
-- Server address during the app startup is now clickable (⌘ + LMB) (Thanks @niallobrien)
-- Fixed redirect issue in the account page (Thanks @YasharF)
-- Fixed `Mongoose.promise` issue (Thanks @starcharles)
-- Removed "My Friends" from Facebook API example due to Graph API changes
-- Removed iOS7 theme
-- `User` model unit tests improvements (Thanks @andela-rekemezie)
-- Switched from **github-api** to the more popular **github** NPM module
-- Updated Yarn and NPM dependencies
-
-### 4.2.1 (September 6, 2016)
-- User model minor code refactoring
-- Fixed gravatar display issue on the profile page
-- Pretty terminal logs for database connection and app server
-- Added compiled *main.css* to *.gitignore*
-
-### 4.2.0 (August 21, 2016)
-- Converted templates from jade to pug (See [Rename from "Jade"](https://github.com/pugjs/pug#rename-from-jade))
-
-### 4.1.1 (August 20, 2016)
-- Updated dependencies
-
-### 4.1.0 (July 23, 2016)
-- Improved redirect logic after login [#435](https://github.com/sahat/hackathon-starter/pull/435)
-- Removed Venmo API (see [Venmo Halts New Developer Access To Its API](https://techcrunch.com/2016/02/26/how-not-to-run-a-platform/))
-- Removed BitGo API due to issues with `secp256k1` dependency on Windows
-
-### 4.0.1 (May 17, 2016)
-- Renamed `MONGODB` to `MONGODB_URI` environment variable
-- Set engine `"node": "6.1.0"` in *package.json*
-
-### 4.0.0 (May 13, 2016)
-- **ECMAScript 2015 support!** (Make sure you are using Node.js 6.0+)
- - Thanks  @vanshady and @prashcr
-- Added `<meta theme-color>` support for *Chrome for Android*
-- Added Yahoo Finance API example
-- Updated Aviary API example
-- Flash an error message when updating email to that which is already taken
-- Removing an email address during profile update is no longer possible
-- PayPal API example now uses *return_url* and *cancel_url* from `.env`
-- Added client-side `required=true` attributes to input fields 
-- Fixed broken `show()` function in the GitHub API example
-- Fixed YQL query in the Yahoo Weather API example
-- Fixed *Can't set headers after they are sent* error in Stripe API example
-- Code refactoring and cleanup
-- Updated Travis-CI Node.js version
-- Updated NPM dependencies
-- Removed Mandrill references
-
-### 3.5.0 (March 4, 2016)
-- Added file upload example
-- Added Pinterest API example
-- Added timestamp support to the User schema
-- Fixed `next` parameter being *undefined* inside `getReset` handler
-- Refactored querysting param usage in *api.js* controller
-- Removed *setup.js* (generator) due to its limited functionality and a lack of updates
-
-### 3.4.1 (February 6, 2016)
-- Added "Obtaining Twilio API Keys" instructions.
-- Updated Bootstrap v3.3.6.
-- Updated jQuery v2.2.0.
-- Updated Font Awesome v4.5.0.
-- Removed `debug` and `outputStyle` from the Sass middleware options.
-- Removed `connect-assets` (no longer used) from *package.json*`.
-- Fixed Font Awesome icon syntax error in *profile.jade*.
-- Fixed Cheerio broken link.
-
-### 3.4.0 (January 5, 2016)
-- Use `dontenv` package for managing API keys and secrets.
-- Removed *secrets.js* (replaced by *.env.example*).
-- Added .env to .gitignore.
-- Fixed broken Aviary API image.
-
-### 3.3.1 (December 25, 2015)
-- Use `connect-mongo` ES5 fallback for backward-compatibility with Node.js version `< 4.0`.
-
-### 3.3.0 (December 19, 2015)
-- Steam authorization via OpenID.
-- Code style update. (No longer use "one-liners" without braces)
-- Updated LinkedIn scope from `r_fullprofile` to `r_basicprofile` due to API changes.
-- Added LICENSE file.
-- Removed [Bitcore](https://bitcore.io/) example due to installation issues on Windows 10.
-
-
-### 3.2.0 (October 19, 2015)
-- Added Google Analytics script.
-- Split *api.js* `require` intro declaration and initialization for better performance. (See <a href="https://github.com/sahat/hackathon-starter/issues/247">#247</a>)
-- Removed [ionicons](http://ionicons.com).
-- Removed [connect-assets](https://github.com/adunkman/connect-assets). (Replaced by [node-sass-middleware](https://github.com/sass/node-sass-middleware))
-- Fixed alignment styling on /login, /profile and /account
-- Fixed Stripe API `POST` request.
-- Converted LESS to Sass stylesheets.
-- Set `node_js` version to "stable" in *.travis.yml*.
-- Removed `mocha.opts` file, pass options directly to package.json
-- README cleanup and fixes.
-- Updated Font Awesome to 4.4.0
-
-### 3.1.0 (August 25, 2015)
-- Added Bitcore example.
-- Added Bitgo example.
-- Lots of README fixes.
-- Fixed Google OAuth profile image url.
-- Fixed a bug where `connect-assets` served all JS assets twice.
-- Fixed missing `csrf` token in the Twilio API example form.
-- Removed `multer` middleware.
-- Removed Ordrx API. (Shutdown)
-
-### 3.0.3 (May 14, 2015)
-- Added favicon.
-- Fixed an email issue with Google login.
-
-### 3.0.2 (March 31, 2015)
-- Renamed `navbar.jade` to `header.jade`.
-- Fixed typos in README. Thanks @josephahn and @rstormsf.
-- Fix radio button alignment on small screens in Profile page.
-- Increased `bcrypt.genSalt()` from **5** to **10**.
-- Updated package dependencies.
-- Updated Font Awesome `4.3.0`.
-- Updated Bootstrap `3.3.4`.
-- Removed Ionicons.
-- Removed unused `User` variable in *controllers/api.js*.
-- Removed Nodejitsu instructions from README.
-
-### 3.0.1 (February 23, 2015)
-- Reverted Sass to LESS stylesheets. See <a href="https://github.com/sahat/hackathon-starter/issues/233">#233</a>.
-- Convert email to lower case in Passport's LocalStrategy during login.
-- New Lob API.
-- Updated Font Awesome to 4.3.0
-- Updated Bootstrap and Flatly theme to 3.3.2.
-
-### 3.0.0 (January 11, 2015)
-- New Ordr.in API example.
-- Brought back PayPal API example.
-- Added `xframe` and xssProtection` protection via **lusca** module.
-- No more CSRF route whitelisting, either enable or dsiable it globally.
-- Simplified "remember original destination" middleware.
- - Instead of excluding certain routes, you now have to "opt-in" for the routes you wish to remember for a redirect after successful authentication.
-- Converted LESS to Sass.
-- Updated Bootstrap to 3.3.1 and Font Awesome to 4.2.0.
-- Updated jQuery to 2.1.3 and Bootstrap to 3.3.1 JS files.
-- Updated Ionicons to 2.0.
-- Faster travis-ci builds using `sudo: false`.
-- Fixed YUI url on Yahoo API example.
-- Fixed `mongo-connect` deprecation warning.
-- Code cleanup throughout the project.
-- Updated `secrets.js` notice.
-- Simplified the generator (`setup.js`), no longer removes auth providers.
-- Added `git remote rm origin` to Getting Started instructions in README.
-
-### 2.4.0 (November 8, 2014)
-- Bootstrap 3.3.0.
-- Flatly 3.3.0 theme.
-- User model cleanup.
-- Removed `helperContext` from connect-assets middleware.
-
-### 2.3.4 (October 27, 2014)
-- Font Awesome 4.2.0 [01e7bd5c09926911ca856fe4990e6067d9148694](https://github.com/sahat/hackathon-starter/commit/01e7bd5c09926911ca856fe4990e6067d9148694)
-- Code cleanup in `app.js` and `controllers/api.js`. [8ce48f767c0146062296685cc101acf3d5d224d9](https://github.com/sahat/hackathon-starter/commit/8ce48f767c0146062296685cc101acf3d5d224d9) [cdbb9d1888a96bbba92d4d14deec99a8acba2618](https://github.com/sahat/hackathon-starter/commit/cdbb9d1888a96bbba92d4d14deec99a8acba2618)
-- Updated Stripe API example. [afef373cd57b6a44bf856eb093e8f2801fc2dbe2](https://github.com/sahat/hackathon-starter/commit/afef373cd57b6a44bf856eb093e8f2801fc2dbe2)
-- Added 1-step deployment process with Heroku and mLab add-on. [c5def7b7b3b98462e9a2e7896dc11aaec1a48b3f](https://github.com/sahat/hackathon-starter/commit/c5def7b7b3b98462e9a2e7896dc11aaec1a48b3f)
-- Updated Twitter apps dashboard url. [e378fbbc24e269de69494d326bc20fcb641c0697](https://github.com/sahat/hackathon-starter/commit/e378fbbc24e269de69494d326bc20fcb641c0697)
-- Fixed dead links in the README. [78fac5489c596e8bcef0ab11a96e654335573bb4](https://github.com/sahat/hackathon-starter/commit/78fac5489c596e8bcef0ab11a96e654335573bb4)
-
-### 2.3.3 (September 1, 2014)
-- Use *https* (instead of http) profile image URL with Twitter authentication
-
-### 2.3.2 (July 28, 2014)
-- Fixed an issue with connect-assets when running `app.js` from an outside folder
-- Temporarily disabled `setup.js` on Windows platform until [blessed](https://github.com/chjj/blessed) fixes its problems
-
-### 2.3.1 (July 15, 2014)
-- Migrated to Nodemailer 1.0
-
-### 2.3 (July 2, 2014)
-- Bootstrap 3.2
-- New default theme
-- Ionicons fonts
-- Fixed bodyParser deprecation warning
-- Minor visual updates
-- CSS cleanup via RECESS
-- Replaced `navbar-brand` image with a font icon
-
-### 2.2.1 (June 17, 2014)
-- Added IBM Codename: BlueMix deployment instructions
-
-### 2.2 (June 6, 2014)
-- Use Lodash instead of Underscore.js
-- Replaced all occurrences of `_.findWhere` with `_.find`
-- Added a flash message when user deletes an account
-- Updated and clarified some comments
-- Updated the Remove Auth message in `setup.js`
-- Cleaned up `styles.less`
-- Redesigned API Examples page
-- Updated Last.fm API example
-- Updated Steam API example
-- Updated Instagram API example
-- Updated Facebook API example
-- Updated jQuery to 2.1.1
-- Fixed a bug that didn't remove Instagram Auth properly
-- Fixed Foursquare secret token
-
-### 2.1.4 (June 5, 2014)
-- Fixed a bug related to `returnTo` url (#155)
-
-### 2.1.3 (June 3, 2014)
-- Font Awesome 4.1
-- Updated icons on some API examples
-- Use LESS files for *bootstrap-social* and *font-awesome*
-
-### 2.1.2 (June 2, 2014)
-- Improved Twilio API example
-- Updated dependencies
-
-### 2.1.1 (May 29, 2014)
-- Added **Compose new Tweet** to Twitter API example
-- Fixed email service indentation
-- Fixed Mailgun and Mandrill secret.js properties
-- Renamed `navigation.jade` to `navbar.jade`
-
-### 2.1 (May 13, 2014)
-- New and improved generator - **setup.js**
-- Added Yahoo API
-- CSS and templates cleanup
-- Minor improvement to the default theme
-- `cluster_app.js` has been moved into **setup.js**
-
-### 2.0.4 (April 26, 2014)
-- Added Mandrill e-mail service (via generator)
-
-### 2.0.3 (April 25, 2014)
-- LinkedIn API: Fixed an error if a user did not specify education on LinkedIn
-- Removed email constraint when linking OAuth accounts in order to be able to merge accounts that use the same email address
-- Check if email address is already taken when creating a new local account
- - Previously relied on Validation Error 11000, which doesn't always work
-- When creating a local account, checks if e-mail address is already taken
-- Flash notifications can now be dismissed by clicking on �?
-
-### 2.0.2 (April 22, 2014)
-- Added Instagram Authentication
-- Added Instagram API example
-- Updated Instagram Strategy to use a "fake" email address similar to Twitter Startegy
-
-### 2.0.1 (April 18, 2014)
-- Conditional CSRF support using [lusca](https://github.com/krakenjs/lusca)
-- Fixed EOL problem in `generator.js` for Windows users
-- Fixed outdated csrf token string on profile.jade
-- Code cleanup
-
-### 2.0.0 (April 15, 2014)
-There are have been over **500+** commits since the initial announcement in
-January 2014 and over a **120** issues and pull requests from **28** contributors.
-
-- Documentation grew **8x** in size since the announcement on Hacker News
-- Upgraded to Express 4.0
-- Generator for adding/removing authentication providers
-- New Instagram authentication that can be added via generator
-- Forgot password and password reset for Local authentication
-- Added LinkedIn authentication and API example
-- Added Stripe API example
-- Added Venmo API example
-- Added Clockwork SMS example
-- Nicer Facebook API example
-- Pre-populated secrets.js with API keys (not linked to my personal accounts)
-- Grid layout with company logos on API Examples page
-- Added tests (Mocha, Chai, Supertest)
-- Gravatar pictures in Navbar and Profile page
-- Tracks last visited URL before signing in to redirect back to original destination
-- CSRF protection
-- Gzip compression and static assets caching
-- Client-side JavaScript is automatically minified+concatenated in production
-- Navbar, flash messages, footer refactored into partial templates
-- Support for Node.js clusters
-- Support for Mailgun email service
-- Support for environment variables in secrets.js
-- Switched from less-middleware to connect-assets
-- Bug fixes related to multi-authentication login and account linking
-- Other small fixes and changes that are too many to list
+- Go to <a href="https://www.twilio.com/try-twilio" target="_blank">https://www.twilio.com/try-twilio</a>
+- Sign up for an account.
+- Once logged into the dashboard, expand the link 'show api credentials'
+- Copy your Account Sid and Auth Token
 
 Contributing
 ------------
