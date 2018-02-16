@@ -3,7 +3,7 @@ Titanium Hackathon Starter
 
 [![Dependency Status](https://david-dm.org/sahat/hackathon-starter/status.svg?style=flat)](https://david-dm.org/sahat/hackathon-starter) [![Build Status](https://travis-ci.org/sahat/hackathon-starter.svg?branch=master)](https://travis-ci.org/sahat/hackathon-starter) [![Join the chat at https://gitter.im/sahat/hackathon-starter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/sahat/hackathon-starter?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![Thinkful Pair on Node](https://tf-assets-staging.s3.amazonaws.com/badges/thinkful_repo_badge.svg)](http://start.thinkful.com/node/)
 
-A boilerplate for **Node.js** web applications.
+A boilerplate for **Node.js** web applications based on https://github.com/sahat/hackathon-starter
 
 If you have attended any hackathons in the past, then you know how much time it takes to
 get a project started: decide on what to build, pick a programming language, pick a web framework,
