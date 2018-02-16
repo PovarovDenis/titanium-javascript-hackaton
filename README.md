@@ -18,7 +18,7 @@ Table of Contents
 - [Prerequisites](#prerequisites)
 - [Getting Started](#getting-started)
 - [TODO](#todo)
-    - [1. Install Titanium boilerplate and check if tests pass](#1-Install-Titanium-boilerplate-and-check-if-tests-pass)
+    - [1. Install Titanium boilerplate and check if tests pass](#1-install-titanium-boilerplate-and-check-if-tests-pass)
     - [2. Create page for adding new Lessons](#2-create-a-model-for-the-github-api)
     - [3. Create page for adding new Tasks](#3-implement-the-database-models)
     - [4. Update main page to represent your Idea](#4-implement-helper-functions-for-the-database-models)
