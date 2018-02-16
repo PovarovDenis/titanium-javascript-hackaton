@@ -1,4 +1,7 @@
 Titanium Hackathon Starter
+
+![](https://lh5.googleusercontent.com/Xm2tUQOcAZyIPDtX1QsSyIBPx8K1vUIqWu5GXh7yNY82XiYw1wnZHdqDbmpbCkz3K8EGfLna5j3W0yxEtsGA=w1920-h990-rw)
+
 =======================
 
 A boilerplate for **Node.js** web applications based on https://github.com/sahat/hackathon-starter
