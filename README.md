@@ -19,13 +19,13 @@ Table of Contents
 - [Getting Started](#getting-started)
 - [TODO](#todo)
     - [1. Install Titanium boilerplate and check if tests pass](#1-install-titanium-boilerplate-and-check-if-tests-pass)
-    - [2. Create page for adding new Lessons](#2-create-a-model-for-the-github-api)
-    - [3. Create page for adding new Tasks](#3-implement-the-database-models)
-    - [4. Update main page to represent your Idea](#4-implement-helper-functions-for-the-database-models)
-    - [5. Create page to list all Lessons](#5-create-a-worker-process)
-    - [6. Create page for detail view of each Lesson](#6-implement-a-rest-api)
-    - [7. Prepare page for detail veiw of each Task](#7-prepare-your-service-for-production)
-    - [8. Prepare your service for production](#7-prepare-your-service-for-production)
+    - [2. Create page for adding new Lessons](#2-create-page-for-adding-new-lessons)
+    - [3. Create page for adding new Tasks](#3-create-page-for-adding-new-tasks)
+    - [4. Update main page to represent your Idea](#4-update-main-page-to-represent-your-idea)
+    - [5. Create page to list all Lessons](#5-create-page-to-list-all-lessons)
+    - [6. Create page for detail view of each Lesson](#6-create-page-for-detail-view-of-each-lesson)
+    - [7. Prepare page for detail view of each Task](#7-prepare-page-for-detail-view-of-each-task)
+    - [8. Prepare your service for production](#8-prepare-your-service-for-production)
 - [Project Structure](#project-structure)
 - [List of Packages](#list-of-packages)
 - [Useful Tools and Resources](#useful-tools-and-resources)
@@ -126,7 +126,7 @@ TODO
   - [Mocha](https://mochajs.org/) test framework
   - [Chai](http://chaijs.com/api/bdd/) assertion library
 
-### 2. Create a model for the Github API
+### 2. Create page for adding new Lessons
 
   In this step you will implement two functions, wrappers for the GitHub API. You will use them to get information from GitHub later.
 
@@ -148,7 +148,7 @@ TODO
   Extra:
   - Use the [Github API v4 - GraphQL API](https://developer.github.com/v4) instead
 
-### 3. Implement the database models
+### 3. Create page for adding new Tasks
 
   In this step you will create the database tables, where the data will be stored, using migrations.
 
@@ -203,7 +203,7 @@ TODO
   - [`knex` migrations API](http://knexjs.org/#Migrations-API)
   - [npm scripts](https://docs.npmjs.com/misc/scripts)
 
-### 4. Implement helper functions for the database models
+### 4. Update main page to represent your Idea
 
   In this step you will implement and test helper functions for inserting, changing and reading data from the database.
 
@@ -256,7 +256,7 @@ TODO
     SELECT column_name FROM information_schema.columns WHERE table_name='contribution';
     ```
 
-### 5. Create a worker process
+### 5. Create page to list all Lessons
 
   In this step you will implement another process of the application, the worker. We will trigger a request to collect the contributions for repositories based on some query. The trigger will send messages to another channel, the handler for this channel is reponsible to fetch the repositories. The third channel is used to fetch and save the contributions.
 
@@ -291,7 +291,7 @@ TODO
   - [Redis pub/sub](https://redis.io/topics/pubsub)
   - [`ioredis`](https://github.com/luin/ioredis)
 
-### 6. Implement a REST API
+### 6. Create page for detail view of each Lesson
 
   In this step you will add a few routes to the existing web application to trigger a data crawl and to expose the collected data.
 
@@ -326,7 +326,30 @@ TODO
   - [Koa middleware & cascade](http://koajs.com/)
   - [API Blueprint tutorial](https://help.apiary.io/api_101/api_blueprint_tutorial/)
 
-### 7. Prepare your service for production
+### 7. Prepare page for detail view of each Task
+
+  In this step you will add some features, which are required to have your application running in production environment.
+
+  Tasks:
+  - [ ] Listen on the `SIGTERM` signal in `web/index.js`.
+    - Create a function called `gracefulShutdown`
+    - Use koa's `.callback()` function to create a `http` server (look for `http.createServer`) and convert `server.close` with `util.promisify`
+    - Close the server and destroy the database and redis connections (use the `destroy` function to the redis model, which calls `disconnect` on both redis clients and returns a `Promise`)
+    - Log out and exit the process with code `1` if something fails
+    - Exit the process with code `0` if everything is closed succesfully
+  - [ ] Implement the same for the worker process
+  - [ ] Add a health check endpoint for the web server
+    - Add a `healthCheck` function for the database model, use the `PG_HEALTH_CHECK_TIMEOUT` environment variable to set the query timeout (set default to `2000` ms)
+    - Add a `healthCheck` function to the redis model
+    - Implement the `GET /healthz` endpoint, return `200` with JSON body `{ "status": "ok" }`when everything is healthy, `500` if any of the database or redis connections are not healthy and `503` if the process got `SIGTERM` signal
+  - [ ] Create a http server and add a similar health check endpoint for the worker process
+
+  Readings:
+  - [Signal events](https://nodejs.org/api/process.html#process_signal_events)
+  - [Graceful shutdown](https://blog.risingstack.com/graceful-shutdown-node-js-kubernetes/)
+  - [Health checks](http://microservices.io/patterns/observability/health-check-api.html)
+
+### 8. Prepare your service for production
 
   In this step you will add some features, which are required to have your application running in production environment.
 
