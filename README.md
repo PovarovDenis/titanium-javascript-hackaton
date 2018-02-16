@@ -18,13 +18,14 @@ Table of Contents
 - [Prerequisites](#prerequisites)
 - [Getting Started](#getting-started)
 - [TODO](#todo)
-    - [1. Create a simple web application and make the test pass](#1-create-a-simple-web-application-and-make-the-test-pass)
-    - [2. Create a model for the Github API](#2-create-a-model-for-the-github-api)
-    - [3. Implement the database models](#3-implement-the-database-models)
-    - [4. Implement helper functions for the database models](#4-implement-helper-functions-for-the-database-models)
-    - [5. Create a worker process](#5-create-a-worker-process)
-    - [6. Implement a REST API](#6-implement-a-rest-api)
-    - [7. Prepare your service for production](#7-prepare-your-service-for-production)
+    - [1. Install Titanium boilerplate and check if tests pass](#1-Install-Titanium-boilerplate-and-check-if-tests pass)
+    - [2. Create page for adding new Lessons](#2-create-a-model-for-the-github-api)
+    - [3. Create page for adding new Tasks](#3-implement-the-database-models)
+    - [4. Update main page to represent your Idea](#4-implement-helper-functions-for-the-database-models)
+    - [5. Create page to list all Lessons](#5-create-a-worker-process)
+    - [6. Create page for detail view of each Lesson](#6-implement-a-rest-api)
+    - [7. Prepare page for detail veiw of each Task](#7-prepare-your-service-for-production)
+    - [8. Prepare your service for production](#7-prepare-your-service-for-production)
 - [Project Structure](#project-structure)
 - [List of Packages](#list-of-packages)
 - [Useful Tools and Resources](#useful-tools-and-resources)
@@ -109,7 +110,7 @@ restart the server each time you make a small change in code. To install, run
 TODO
 ---------------
 
-### 1. Create a simple web application and make the test pass
+### 1. Install Titanium boilerplate and check if tests pass
 
   Tasks:
   - [ ] Create a `GET` endpoint `/hello` returning `Hello Node.js!` in the response body, use the middleware of the `koa-router` package
