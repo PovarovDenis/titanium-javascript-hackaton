@@ -1,12 +1,12 @@
 /**
  * GET /
- * TaskDetailView.
+ * Detail of Task.
  */
 const Details = require('../models/TaskDetailController.js');
 
 exports.getDetails = (req, res) => {
-    res.render('../views/admin/TaskDetailController/TaskDetailController.pug', {
-      title: 'Task Detail View'
-    });
+  Book.find((err, docs) => {
+    res.render('Details', { Details: docs });
+  });
   };
   

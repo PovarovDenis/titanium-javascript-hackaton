@@ -34,12 +34,9 @@ const homeController = require('./controllers/home');
 const userController = require('./controllers/user');
 const apiController = require('./controllers/api');
 const contactController = require('./controllers/contact');
-<<<<<<< HEAD
 const TaskDetailController = require('./controllers/TaskDetailController');
-=======
 const lessonForm = require('./controllers/lessonForm');
 
->>>>>>> 2d70e5b8dda559282d2c407f13b6cefca08d340b
 /**
  * Aaaaaa
  */
