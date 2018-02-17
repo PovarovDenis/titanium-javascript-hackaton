@@ -20,6 +20,8 @@ const expressStatusMonitor = require('express-status-monitor');
 const sass = require('node-sass-middleware');
 const multer = require('multer');
 
+const formBodyParser = require('body-parser');
+
 const upload = multer({ dest: path.join(__dirname, 'uploads') });
 
 /**
@@ -73,6 +75,9 @@ app.use(sass({
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+// Igor.chertman's changes
+app.use(formBodyParser.urlencoded({extended: false}));
+//
 app.use(expressValidator());
 app.use(session({
   resave: true,
@@ -231,7 +236,7 @@ app.get('/admin', (req, res) => {
   res.render('admin/admin');
 });
 app.get('/lesson-form',lessonForm.getTemplate);
-app.post('lesson-form',bodyParser,lessonForm.sendForm);
+app.post('/lesson-form',lessonForm.sendForm);
 
 /**
  * Error Handler.
