@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const taskSchema = new mongoose.Schema({
   taskName: String,
+  lessonId: String,
   task: String,
   taskDesc: String,
 });

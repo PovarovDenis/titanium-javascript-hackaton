@@ -16,6 +16,7 @@ exports.addNewTaskController = (req, res) => {
 exports.create = (req, res) => {
     const task = new Task({
         taskName: req.body.taskName,
+        lessonId: req.body.lessonId,
         task: req.body.task,
         taskDesc: req.body.taskDesc,
       });
