@@ -125,6 +125,7 @@ app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }))
 app.get('/admin', adminController.adminPage);
 app.get('/admin/lesson-form', adminController.lessonFormPage);
 app.get('/admin/task-form', adminController.taskFormPage);
+app.get('/lessons', lessonController.lessonsPage);
 app.post('/admin/lesson-form', lessonController.postLesson);
 app.post('/admin/task-form', taskController.postTask);
 

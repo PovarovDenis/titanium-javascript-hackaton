@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  h1 Lessons
+  p.lead Short description for this section
+  hr
+  .row
+    for lesson in db
+      .col-sm-6
+        h2 #{lesson.name}
+        p #{lesson.description}
+        p
+          a.btn.btn-default(href='#', role='button') View details »
+
