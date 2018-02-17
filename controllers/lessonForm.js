@@ -17,9 +17,8 @@ exports.sendForm = (req, res) => {
         }else{
             Lesson.create(lesson, function(err){
                 if(err) return console.log(err);
-                res.send(req.body.less_description);
-                 
-                console.log("Сохранен объект", lesson);
+                res.redirect('/lessons');
+                
               });
         }
       })
@@ -33,7 +32,7 @@ exports.sendForm = (req, res) => {
     res.render('./admin/lessonForm/lessonForm.pug', {
         messageLessName: 'Name: ',
         messageLessDescription: 'Description: ',
-        submitText: 'Harakiri'
+        submitText: 'Send'
     });
   };
   

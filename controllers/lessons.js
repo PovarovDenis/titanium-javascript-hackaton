@@ -1,17 +1,5 @@
-const Lessons = require('./../models/Lessons');
 
-exports.ListOfLessons = (req, res) => {
-  console.log('get lessons')
-  res.render('./llessons/lessonsList/lessonsList.pug', {
-    title: 'ShowLessons',
-    lessons: [
-      {
-        name: 'Lesson 1',
-        description: 'Desc'
-      }
-    ]
-  });
-};
+const Lessons = require('./../models/Lessons');
 
 exports.lessonById = (req, res) => {
   const id = req.params.id;
@@ -28,5 +16,18 @@ exports.lessonById = (req, res) => {
       lesson: lesson
     });
   });
+
+exports.ListOfLessons = (req, res) => {
+
+  Lesson.find((err, items) => {
+    if(err){
+        res.send(err);
+        return;
+    }
+    res.render('account/lessons/lessonsList/lessonsList.pug', {
+      title: 'ShowLessons',
+      lessons: items
+    });
+  })
 
 };
