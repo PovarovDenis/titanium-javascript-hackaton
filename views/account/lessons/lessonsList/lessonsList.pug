@@ -5,7 +5,8 @@ block content
     h3 LIst of lessons
     ul
     - for (var i = 0; i < lessons.length; ++i) {
-      li #{lessons[i].lessonName} - #{lessons[i].lessonDescription}
+      li 
+        a(href='/lessons/' + lessons[i]._id) #{lessons[i].lessonName} - #{lessons[i].lessonDescription}
     - }
     
   
