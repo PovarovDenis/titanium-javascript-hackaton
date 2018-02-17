@@ -4,9 +4,8 @@ block content
 
 
 
-        <form name="main_form" action="/lesson-form-add" method="post">
-        <input(type='hidden', name='_csrf', value=_csrf)></input>
-
+        <form name="main_form" action="/lesson-form" method="post">
+        input(type='hidden', name='_csrf', value=_csrf)
         <label(for="less_name")>#{messageLessName}</label>
         <input type="text" name="less_name"></input>
         <label(for="less_description")>#{messageLessDescription}</label>
