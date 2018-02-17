@@ -35,6 +35,7 @@ const userController = require('./controllers/user');
 const apiController = require('./controllers/api');
 const contactController = require('./controllers/contact');
 const addNewTaskController = require('./controllers/addNewTask');
+const lessonForm = require('./controllers/lessonForm');
 
 /**
  * API keys and Passport configuration.
@@ -224,6 +225,16 @@ app.get('/auth/pinterest/callback', passport.authorize('pinterest', { failureRed
   res.redirect('/api/pinterest');
 });
 app.get('/add-task', addNewTaskController.addNewTaskController);
+app.post('/add-task', addNewTaskController.create);
+
+/**
+ * Admin
+ */
+app.get('/admin', (req, res) => {
+  res.render('admin/admin');
+});
+app.get('/lesson-form',lessonForm.getTemplate);
+app.post('lesson-form',bodyParser,lessonForm.sendForm);
 
 /**
  * Error Handler.

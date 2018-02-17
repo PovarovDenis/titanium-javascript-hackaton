@@ -3,15 +3,40 @@ extends ../../layout
 
 block content
 
-    <div class="addingNewTasks">
-        <form(action="" method="post") >
-        <p>Task name
-        <input type="text" name="taskName">
-        <p>Task
-        <input type="text" name="task">
-        <p>Task description
-        <input type="text" name="taskDesc">
-        <input type="submit" value ="Send"> 
-        </form>
-    </div>
-    <div  id="result"></div>
+block content
+  .page-header
+    h3 Sign in
+  form.form-horizontal(method='POST')
+    input(type='hidden', name='_csrf', value=_csrf)
+    .form-group
+      label.col-sm-3.control-label(for='taskName') Task name
+      .col-sm-7
+        input.form-control(type='text', name='taskName', id='taskName', placeholder='Sometext', autofocus, required)
+    .form-group
+      label.col-sm-3.control-label(for='task') Task
+      .col-sm-7
+        input.form-control(type='text', name='task', id='task', placeholder='Sometext', autofocus, required)    
+    .form-group
+      label.col-sm-3.control-label(for='taskDesc') Task description
+      .col-sm-7
+        input.form-control(type='text', name='taskDesc', id='taskDesc', placeholder='Sometext', autofocus, required)    
+    .form-group
+      .col-sm-offset-3.col-sm-7
+        button.col-sm-3.btn.btn-primary(type='submit')
+          i.fa.fa-user
+          | Submit
+
+
+
+    //- <div class="addingNewTasks">
+    //-     <form action="" method="post" >
+    //-     <p>Task name
+    //-     <input type="text" name="taskName">
+    //-     <p>Task
+    //-     <input type="text" name="task">
+    //-     <p>Task description
+    //-     <input type="text" name="taskDesc">
+    //-     <input type="submit" value ="Send"> 
+    //-     </form>
+    //- </div>
+    //- <div  id="result"></div>
