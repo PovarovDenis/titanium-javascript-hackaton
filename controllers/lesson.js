@@ -1,4 +1,5 @@
 const Lesson = require('../models/Lesson');
+const ObjectID = require('mongoose').ObjectID;
 
 /**
  * POST /
@@ -30,6 +31,24 @@ exports.lessonsPage = (req, res) => {
     .then((lesson) => {
       res.render('lessons', {
         title: 'Lessons',
+        db: lesson
+      });
+    });
+};
+
+/**
+ *  GET /
+ * lesson detailed page.
+ */
+exports.lessonDetailedPage = (req, res) => {
+  const urlId = req.params.id;
+  console.log(urlId);
+  console.log(typeof urlId);
+  //const id = { _id: ObjectId(urlId) };
+  Lesson.findById(new ObjectID(req.params.id))
+    .then((lesson) => {
+      res.render('lesson', {
+        title: 'Lesson ',
         db: lesson
       });
     });
