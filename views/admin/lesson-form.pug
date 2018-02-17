@@ -1,0 +1,18 @@
+extends ../layout
+
+block content
+
+  form.form-horizontal(method='POST')
+    input(type='hidden', name='_csrf', value=_csrf)
+    .form-group
+      label.col-sm-3.control-label(for='lessonName') Lesson name
+      .col-sm-7
+        input.form-control(type='text', name='lessonName', id='lessonName', placeholder='Lesson name', autofocus, required)
+    .form-group
+      label.col-sm-3.control-label(for='lessonDescription') Lesson description
+      .col-sm-7
+        textarea.form-control(name="lessonDescription", cols="30", rows="10", id='lessonDescription', placeholder='Lesson description', required)
+    .form-group
+      .col-sm-offset-3.col-sm-7
+        button.col-sm-3.btn.btn-primary(type='submit')
+          | Add new Lesson

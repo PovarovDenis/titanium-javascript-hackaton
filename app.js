@@ -31,6 +31,7 @@ dotenv.load({ path: '.env.example' });
  * Controllers (route handlers).
  */
 const adminController = require('./controllers/admin'); 
+const lessonController = require('./controllers/lesson'); 
 const homeController = require('./controllers/home');
 const userController = require('./controllers/user');
 const apiController = require('./controllers/api');
@@ -119,7 +120,9 @@ app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }))
 /**
  * Primary app routes.
  */
-app.get('/admin', adminController.index);
+app.get('/admin', adminController.adminPage);
+app.get('/admin/lesson-form', adminController.lessonFormPage);
+app.post('/admin/lesson-form', lessonController.postLesson);
 app.get('/', homeController.index);
 app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);
