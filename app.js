@@ -159,9 +159,7 @@ app.get('/test', (req, res) => {
 /**
  * Aaaaa
  */
-app.get('/lessons', (req, res) => {
-res.render('account/lessons/lessonsList/lessonsList');
-});
+
 app.get('/lessons', lessonsList.ListOfLessons);
 
 /**
@@ -255,6 +253,8 @@ app.get('/admin', (req, res) => {
 });
 app.get('/lesson-form',lessonForm.getTemplate);
 app.post('/lesson-form',lessonForm.sendForm);
+
+app.get('/lessons/:id', lessonsList.lessonById);
 
 /**
  * Error Handler.
