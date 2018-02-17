@@ -32,6 +32,7 @@ dotenv.load({ path: '.env.example' });
  */
 const homeController = require('./controllers/home');
 const userController = require('./controllers/user');
+const adminController = require('./controllers/admin');
 const apiController = require('./controllers/api');
 const contactController = require('./controllers/contact');
 
@@ -135,6 +136,12 @@ app.post('/account/profile', passportConfig.isAuthenticated, userController.post
 app.post('/account/password', passportConfig.isAuthenticated, userController.postUpdatePassword);
 app.post('/account/delete', passportConfig.isAuthenticated, userController.postDeleteAccount);
 app.get('/account/unlink/:provider', passportConfig.isAuthenticated, userController.getOauthUnlink);
+/////////
+app.get('/admin', adminController.getAdmin);
+// app.get('/admin', (req, res) => {
+//   res.json({title:'Dici'})
+// })
+// app.post('/admin', userController.postAdmin);
 
 app.get('/test', (req, res) => {
     res.json({
