@@ -113,11 +113,11 @@ TODO
 
 ### 1. Fork Titanium boilerplate
 
-  To start work with team on the Titanium Hackaton first of all you need to form the repository.
+  To start work with the team on the Titanium Hackaton first of all you need to fork the repository.
 
   Tasks:
-  - [ ] One of the team forks repository to his Github account
-  - [ ] Repository owner grants accesses to all team members
+  - [ ] One of the team members forks repository to his Github account
+  - [ ] That repository owner grants accesses to all team members
   - [ ] All of the team members has cloned project on their laptops
 
   Readings:
@@ -145,37 +145,44 @@ TODO
   - [Node `process`](https://nodejs.org/api/process.html)
   - [Express](http://expressjs.com/ru/) web framework
 
-### 3. Create page for adding new Lessons
+### 3. Create admin page and page for adding new Lessons
 
-  In this step you will implement two functions, wrappers for the GitHub API. You will use them to get information from GitHub later.
+  In this step you will implement two pages: one simple page *Adminpanel* and page for adding new Lessons.
+  First of all you need to add page `/admin` where will be just 1 button: *Add new Lesson*.
+  On clicking the button user will go to the Lesson form. To add this page you need to add also API endpoint
+  on server (basic endpoint just to serve the template you'll prepare in `/views/admin/admin.pug`)
+  Lesson form represents page with 2 inputs: one for *Lesson name* and one for *Lesson description*.
+  On *API* you need to implement API endpoint (request handler) and save new lesson to the DB for the Lesson form.
+
+  Tips:
+    - add routes to `app.js`
+    - then add templates to `/views/`
+    - create new controller `/controllers/lesson.js` for request handlers
+    - add new Collection to the Database and call it `lessons`
 
   Tasks:
-  - [ ] `searchRepositories(query)`: should search for repositories given certain programming languages and/or keywords
-    - The `query` function parameter is an `Object` of key-value pairs of the request query parameters (eg. `{ q: 'language:javascript' }`, defaults to `{}`)
-    - It returns a `Promise` of the HTTP response without modification
-  - [ ] `getContributors(repository, query)`: get contributors list with additions, deletions, and commit counts (statistics)
-    - `repository` function parameter is a String of the repository full name, including the owner (eg. `RisingStack/cache`)
-    - The `query` function parameter is an `Object` of key-value pairs of the request query parameters (defaults to `{}`)
-    - It returns a `Promise` of the HTTP response without modification
-  - [ ] Write unit tests for each function, use `nock` to intercept HTTP calls to the GitHub API endpoints
+  - [ ] Create template using PUG for a new page `/admin/lesson-form`
+    - Input `type="text"` for Lesson name
+    - Input `textarea` for Lesson description
+  - [ ] Implement API endpoint for new page `/admin/lesson-form`
+    - `GET` to serve the template
+    - `POST` to save a new Lesson to the Database
 
   Readings:
-  - [Github API v3](https://developer.github.com/v3)
-  - [`request`](https://www.npmjs.com/package/request-promise) & [`request-promise-native`](https://www.npmjs.com/package/request-promise-native) packages
-  - [`nock`](https://github.com/node-nock/nock) for mocking endpoints
+  - [Project Structure](https://github.com/PovarovDenis/titanium-javascript-hackaton#project-structure)
+  - [How do I create a new page?](https://github.com/PovarovDenis/titanium-javascript-hackaton#how-do-i-create-a-new-page)
+  - [PUG](https://pugjs.org/api/getting-started.html) HTML preprocessor
+  - [Add new collection to Mongo](https://docs.mongodb.com/manual/reference/method/db.createCollection/)
+  - [Insert new document to Mongo](https://docs.mongodb.com/manual/tutorial/insert-documents/)
 
   Extra:
-  - Use the [Github API v4 - GraphQL API](https://developer.github.com/v4) instead
+  - [ ] Add functionality to edit lessons (`/admin/lesson-form/edit/:LessonId`)
+    - In this step you also need to add functionality to list all lessons in adminpanel (`/admin`) under button *Add new Lesson*
+  - [ ] Write unit tests for the API endpoints
 
 ### 4. Create page for adding new Tasks
 
-  In this step you will create the database tables, where the data will be stored, using migrations.
-
-  Your model should look like this:
-
-  ![DB schema](db-schema.png)
-
-  It consists of 3 tables: `user`, `repository`, `contribution`. Rows in the `repository` table have foreign keys to a record in the `user` table, `owner`. The `contribution` table is managing many-to-many relationship between the `user` and `repository` tables with foreign keys.
+  This step is very similar to the previous one.
 
   Tasks:
   - [ ] Edit the config and specify the `migrations` field in the knex initialization `Object`, for example:
