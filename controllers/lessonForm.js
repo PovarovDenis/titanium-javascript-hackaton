@@ -33,7 +33,7 @@ exports.sendForm = (req, res) => {
     res.render('./admin/lessonForm/lessonForm.pug', {
         messageLessName: 'Name: ',
         messageLessDescription: 'Description: ',
-        submitText: 'Harakiri'
+        submitText: 'Send'
     });
   };
   
