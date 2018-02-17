@@ -39,6 +39,10 @@ const contactController = require('./controllers/contact');
 const lessonForm = require('./controllers/lessonForm');
 
 /**
+ * Aaaaaa
+ */
+const lessonsList = require('./controllers/lessons');
+/**
  * API keys and Passport configuration.
  */
 const passportConfig = require('./config/passport');
@@ -147,6 +151,14 @@ app.get('/test', (req, res) => {
       test: 'name'
   })
 });
+
+/**
+ * Aaaaa
+ */
+app.get('/lessons', (req, res) => {
+res.render('account/lessons/lessonsList/lessonsList');
+});
+app.get('/lessons', lessonsList.ListOfLessons);
 
 /**
  * API examples routes.
