@@ -154,12 +154,6 @@ TODO
   Lesson form represents page with 2 inputs: one for *Lesson name* and one for *Lesson description*.
   On *API* you need to implement API endpoint (request handler) and save new lesson to the DB for the Lesson form.
 
-  Tips:
-  - add routes to `app.js`
-  - then add templates to `/views/`
-  - create new controller `/controllers/lesson.js` for request handlers
-  - add new Collection to the Database and call it `lessons`
-
   Tasks:
   - [ ] Create template using PUG for a new page `/admin/lesson-form`
     - Input `type="text"` for Lesson name
@@ -167,6 +161,12 @@ TODO
   - [ ] Implement API endpoint for new page `/admin/lesson-form`
     - `GET` to serve the template
     - `POST` to save a new Lesson to the Database
+
+  Tips:
+  - add routes to `app.js`
+  - then add templates to `/views/`
+  - create new controller `/controllers/lesson.js` for request handlers
+  - add new Collection to the Database and call it `lessons`
 
   Readings:
   - [Project Structure](https://github.com/PovarovDenis/titanium-javascript-hackaton#project-structure)
