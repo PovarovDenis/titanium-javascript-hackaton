@@ -150,7 +150,11 @@ app.get('/test', (req, res) => {
 /**
  * Aaaaa
  */
-app.get('/lessons-list', lessonsList.ListOfLessons);
+app.get('/lessons', (req, res) => {
+res.render('account/lessons/lessonsList/lessonsList');
+});
+app.get('/lessons', lessonsList.ListOfLessons);
+
 /**
  * API examples routes.
  */
