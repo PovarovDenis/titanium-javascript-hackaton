@@ -34,7 +34,7 @@ const homeController = require('./controllers/home');
 const userController = require('./controllers/user');
 const apiController = require('./controllers/api');
 const contactController = require('./controllers/contact');
-const TaskDetailView = require('./controllers/TaskDetailView');
+const TaskDetailController = require('/controllers/TaskDetailController');
 /**
  * API keys and Passport configuration.
  */
@@ -115,7 +115,7 @@ app.use((req, res, next) => {
 });
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
 
-app.get('/controllers/TaskDetailView', TaskDetailController.getDetails);
+app.get('/controllers/TaskDetailController', TaskDetailController.getDetails);
 
 /**
  * Primary app routes.
