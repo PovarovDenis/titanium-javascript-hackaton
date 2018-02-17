@@ -22,10 +22,10 @@ Table of Contents
     - [2. Install Titanium boilerplate and check if tests pass](#2-install-titanium-boilerplate-and-check-if-tests-pass)
     - [3. Create page for adding new Lessons](#3-create-page-for-adding-new-lessons)
     - [4. Create page for adding new Tasks](#4-create-page-for-adding-new-tasks)
-    - [5. Update main page to represent your Idea](#5-update-main-page-to-represent-your-idea)
-    - [6. Create page to list all Lessons](#6-create-page-to-list-all-lessons)
-    - [7. Create page for detail view of each Lesson](#7-create-page-for-detail-view-of-each-lesson)
-    - [8. Prepare page for detail view of each Task](#8-prepare-page-for-detail-view-of-each-task)
+    - [5. Create page to list all Lessons](#5-create-page-to-list-all-lessons)
+    - [6. Create page for detail view of each Lesson](#6-create-page-for-detail-view-of-each-lesson)
+    - [7. Create page for detail view of each Task](#7-create-page-for-detail-view-of-each-task)
+    - [8. Update main page to represent your Idea](#8-update-main-page-to-represent-your-idea)
     - [9. Prepare your service for production](#9-prepare-your-service-for-production)
 - [Project Structure](#project-structure)
 - [List of Packages](#list-of-packages)
@@ -229,7 +229,100 @@ TODO
   - [`knex` migrations API](http://knexjs.org/#Migrations-API)
   - [npm scripts](https://docs.npmjs.com/misc/scripts)
 
-### 5. Update main page to represent your Idea
+### 5. Create page to list all Lessons
+
+  In this step you will implement another process of the application, the worker. We will trigger a request to collect the contributions for repositories based on some query. The trigger will send messages to another channel, the handler for this channel is reponsible to fetch the repositories. The third channel is used to fetch and save the contributions.
+
+  **Make a drawing of the message flow, it will help you a lot!**
+
+  Tasks:
+  - [ ] Start Redis locally
+  - [ ] Implement the contributions handler:
+    - The responsibility of the contributions handler is to fetch the contributions of a repository from the GitHub API and to save the contributors and their line counts to the database
+    - Validate the `message`, it has two fields: `date` and `repository` with `id` and `full_name` fields
+    - Get the contributions from the GitHub API (use your models created in step 2)
+    - Count all the lines currently in the repository per users (use `lodash` and `Array` functions)
+    - Save the users to the database, don't fail if the user already exists (use your models created in step 3)
+    - Save the contributions to the database, insert or replace (use your models created in step 3)
+  - [ ] Implement the repository handler:
+    - Validate the `message`, it has three fields: `date`, `query` and `page`
+    - Get the repositories from the GitHub API (use your models created in step 2) with the `q`, `page` and `per_page` (set to 100) query parameters.
+    - Modify the response to a format which is close to the database models (try to use [`lodash/fp`](https://github.com/lodash/lodash/wiki/FP-Guide))
+    - Save the owner to the database, don't fail if the user already exists (use your models created in step 3)
+    - Save the repository to the database, don't fail if the repository already exists (use your models created in step 3)
+    - Publish a message to the `contributions` channel with the same `date`
+  - [ ] Implement the trigger handler:
+    - The responsibility of the trigger handler is to send 10 messages to the `repository` collect channel implemented above. 10, because GitHub only gives access to the first 1000 (10 * page size of 100) search results
+    - Validate the `message`, it has two fields: `date` and `query`
+  - [ ] We would like to make our first search and data collection from GitHub.
+    - For this, create a trigger.js file in the scripts folder. It should be a simple run once Node script which will publish a message to the `trigger` channel with the query passed in as an environment variable (`TRIGGER_QUERY`), then exit. It should have the same `--local`, `-L` flag, but for setting the `REDIS_URI`, as the migrate-db script.
+    - Add a `trigger` field to the scripts in `package.json` that calls your `trigger.js` script.
+
+  Readings:
+  - [12 factor - Processes](https://12factor.net/processes)
+  - [12 factor - Concurrency](https://12factor.net/concurrency)
+  - [Redis pub/sub](https://redis.io/topics/pubsub)
+  - [`ioredis`](https://github.com/luin/ioredis)
+
+### 6. Create page for detail view of each Lesson
+
+  In this step you will add a few routes to the existing web application to trigger a data crawl and to expose the collected data.
+
+  Tasks:
+  - [ ] The database requirements changed in the meantime, create a new migration (call it `4-add-indexes.js`), add indexes to `user.login` and `repository.full_name` (use `knex.schema.alterTable`)
+  - [ ] Implement the `POST /api/v1/trigger` route, the body contains an object with a string `query` field, you will use this query to send a message to the corresponding Redis channel. Return `201` when it was successful
+  - [ ] Implement the `GET /api/v1/repository/:id` and `GET /api/v1/repository/:owner/:name` endpoints
+  - [ ] Implement the `GET /api/v1/repository/:id/contributions`  and `GET /api/v1/repository/:owner/:name/contributions` endpoints
+  - [ ] Create a middleware (`requestLogger({ level = 'silly' })`) and add it to your server, that logs out:
+    - The method and original url of the request
+    - Request headers (except `authorization` and `cookie`) and body
+    - The request duration in `ms`
+    - Response headers (except `authorization` and `cookie`) and body
+    - Response status code (based on it: log level should be `error` when server error, `warn` when client error)
+  - [ ] Document your API using [Apiary](https://apiary.io/)'s Blueprint format (edit the `API_DOCUMENTATION.apib`).
+
+  Notes:
+  - Make use of [koa-compose](https://github.com/koajs/compose) and the validator middleware
+    ```js
+    compose([
+      middleware.validator({
+        params: paramsSchema,
+        query: querySchema,
+        body: bodySchema
+      }),
+      // additional middleware
+    ])
+    ```
+
+  Readings:
+  - [Pragmatic RESTful API](http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api)
+  - [Koa middleware & cascade](http://koajs.com/)
+  - [API Blueprint tutorial](https://help.apiary.io/api_101/api_blueprint_tutorial/)
+
+### 7. Create page for detail view of each Task
+
+  In this step you will add some features, which are required to have your application running in production environment.
+
+  Tasks:
+  - [ ] Listen on the `SIGTERM` signal in `web/index.js`.
+    - Create a function called `gracefulShutdown`
+    - Use koa's `.callback()` function to create a `http` server (look for `http.createServer`) and convert `server.close` with `util.promisify`
+    - Close the server and destroy the database and redis connections (use the `destroy` function to the redis model, which calls `disconnect` on both redis clients and returns a `Promise`)
+    - Log out and exit the process with code `1` if something fails
+    - Exit the process with code `0` if everything is closed succesfully
+  - [ ] Implement the same for the worker process
+  - [ ] Add a health check endpoint for the web server
+    - Add a `healthCheck` function for the database model, use the `PG_HEALTH_CHECK_TIMEOUT` environment variable to set the query timeout (set default to `2000` ms)
+    - Add a `healthCheck` function to the redis model
+    - Implement the `GET /healthz` endpoint, return `200` with JSON body `{ "status": "ok" }`when everything is healthy, `500` if any of the database or redis connections are not healthy and `503` if the process got `SIGTERM` signal
+  - [ ] Create a http server and add a similar health check endpoint for the worker process
+
+  Readings:
+  - [Signal events](https://nodejs.org/api/process.html#process_signal_events)
+  - [Graceful shutdown](https://blog.risingstack.com/graceful-shutdown-node-js-kubernetes/)
+  - [Health checks](http://microservices.io/patterns/observability/health-check-api.html)
+
+### 8. Update main page to represent your Idea
 
   In this step you will implement and test helper functions for inserting, changing and reading data from the database.
 
@@ -282,98 +375,6 @@ TODO
     SELECT column_name FROM information_schema.columns WHERE table_name='contribution';
     ```
 
-### 6. Create page to list all Lessons
-
-  In this step you will implement another process of the application, the worker. We will trigger a request to collect the contributions for repositories based on some query. The trigger will send messages to another channel, the handler for this channel is reponsible to fetch the repositories. The third channel is used to fetch and save the contributions.
-
-  **Make a drawing of the message flow, it will help you a lot!**
-
-  Tasks:
-  - [ ] Start Redis locally
-  - [ ] Implement the contributions handler:
-    - The responsibility of the contributions handler is to fetch the contributions of a repository from the GitHub API and to save the contributors and their line counts to the database
-    - Validate the `message`, it has two fields: `date` and `repository` with `id` and `full_name` fields
-    - Get the contributions from the GitHub API (use your models created in step 2)
-    - Count all the lines currently in the repository per users (use `lodash` and `Array` functions)
-    - Save the users to the database, don't fail if the user already exists (use your models created in step 3)
-    - Save the contributions to the database, insert or replace (use your models created in step 3)
-  - [ ] Implement the repository handler:
-    - Validate the `message`, it has three fields: `date`, `query` and `page`
-    - Get the repositories from the GitHub API (use your models created in step 2) with the `q`, `page` and `per_page` (set to 100) query parameters.
-    - Modify the response to a format which is close to the database models (try to use [`lodash/fp`](https://github.com/lodash/lodash/wiki/FP-Guide))
-    - Save the owner to the database, don't fail if the user already exists (use your models created in step 3)
-    - Save the repository to the database, don't fail if the repository already exists (use your models created in step 3)
-    - Publish a message to the `contributions` channel with the same `date`
-  - [ ] Implement the trigger handler:
-    - The responsibility of the trigger handler is to send 10 messages to the `repository` collect channel implemented above. 10, because GitHub only gives access to the first 1000 (10 * page size of 100) search results
-    - Validate the `message`, it has two fields: `date` and `query`
-  - [ ] We would like to make our first search and data collection from GitHub.
-    - For this, create a trigger.js file in the scripts folder. It should be a simple run once Node script which will publish a message to the `trigger` channel with the query passed in as an environment variable (`TRIGGER_QUERY`), then exit. It should have the same `--local`, `-L` flag, but for setting the `REDIS_URI`, as the migrate-db script.
-    - Add a `trigger` field to the scripts in `package.json` that calls your `trigger.js` script.
-
-  Readings:
-  - [12 factor - Processes](https://12factor.net/processes)
-  - [12 factor - Concurrency](https://12factor.net/concurrency)
-  - [Redis pub/sub](https://redis.io/topics/pubsub)
-  - [`ioredis`](https://github.com/luin/ioredis)
-
-### 7. Create page for detail view of each Lesson
-
-  In this step you will add a few routes to the existing web application to trigger a data crawl and to expose the collected data.
-
-  Tasks:
-  - [ ] The database requirements changed in the meantime, create a new migration (call it `4-add-indexes.js`), add indexes to `user.login` and `repository.full_name` (use `knex.schema.alterTable`)
-  - [ ] Implement the `POST /api/v1/trigger` route, the body contains an object with a string `query` field, you will use this query to send a message to the corresponding Redis channel. Return `201` when it was successful
-  - [ ] Implement the `GET /api/v1/repository/:id` and `GET /api/v1/repository/:owner/:name` endpoints
-  - [ ] Implement the `GET /api/v1/repository/:id/contributions`  and `GET /api/v1/repository/:owner/:name/contributions` endpoints
-  - [ ] Create a middleware (`requestLogger({ level = 'silly' })`) and add it to your server, that logs out:
-    - The method and original url of the request
-    - Request headers (except `authorization` and `cookie`) and body
-    - The request duration in `ms`
-    - Response headers (except `authorization` and `cookie`) and body
-    - Response status code (based on it: log level should be `error` when server error, `warn` when client error)
-  - [ ] Document your API using [Apiary](https://apiary.io/)'s Blueprint format (edit the `API_DOCUMENTATION.apib`).
-
-  Notes:
-  - Make use of [koa-compose](https://github.com/koajs/compose) and the validator middleware
-    ```js
-    compose([
-      middleware.validator({
-        params: paramsSchema,
-        query: querySchema,
-        body: bodySchema
-      }),
-      // additional middleware
-    ])
-    ```
-
-  Readings:
-  - [Pragmatic RESTful API](http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api)
-  - [Koa middleware & cascade](http://koajs.com/)
-  - [API Blueprint tutorial](https://help.apiary.io/api_101/api_blueprint_tutorial/)
-
-### 8. Prepare page for detail view of each Task
-
-  In this step you will add some features, which are required to have your application running in production environment.
-
-  Tasks:
-  - [ ] Listen on the `SIGTERM` signal in `web/index.js`.
-    - Create a function called `gracefulShutdown`
-    - Use koa's `.callback()` function to create a `http` server (look for `http.createServer`) and convert `server.close` with `util.promisify`
-    - Close the server and destroy the database and redis connections (use the `destroy` function to the redis model, which calls `disconnect` on both redis clients and returns a `Promise`)
-    - Log out and exit the process with code `1` if something fails
-    - Exit the process with code `0` if everything is closed succesfully
-  - [ ] Implement the same for the worker process
-  - [ ] Add a health check endpoint for the web server
-    - Add a `healthCheck` function for the database model, use the `PG_HEALTH_CHECK_TIMEOUT` environment variable to set the query timeout (set default to `2000` ms)
-    - Add a `healthCheck` function to the redis model
-    - Implement the `GET /healthz` endpoint, return `200` with JSON body `{ "status": "ok" }`when everything is healthy, `500` if any of the database or redis connections are not healthy and `503` if the process got `SIGTERM` signal
-  - [ ] Create a http server and add a similar health check endpoint for the worker process
-
-  Readings:
-  - [Signal events](https://nodejs.org/api/process.html#process_signal_events)
-  - [Graceful shutdown](https://blog.risingstack.com/graceful-shutdown-node-js-kubernetes/)
-  - [Health checks](http://microservices.io/patterns/observability/health-check-api.html)
 
 ### 9. Prepare your service for production
 
