@@ -1,0 +1,17 @@
+extends ../../layout
+
+block content
+
+
+
+        <form name="main_form" action="/lesson-form-add" method="post">
+        <input(type='hidden', name='_csrf', value=_csrf)></input>
+
+        <label(for="less_name")>#{messageLessName}</label>
+        <input type="text" name="less_name"></input>
+        <label(for="less_description")>#{messageLessDescription}</label>
+        <textarea name="less_description"> </textarea>
+        <input type="submit" value="#{submitText}" name="send"></input>
+
+
+        </form>

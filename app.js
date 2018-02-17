@@ -34,6 +34,7 @@ const homeController = require('./controllers/home');
 const userController = require('./controllers/user');
 const apiController = require('./controllers/api');
 const contactController = require('./controllers/contact');
+const lessonForm = require('./controllers/lessonForm');
 
 /**
  * Aaaaaa
@@ -230,6 +231,15 @@ app.get('/auth/pinterest', passport.authorize('pinterest', { scope: 'read_public
 app.get('/auth/pinterest/callback', passport.authorize('pinterest', { failureRedirect: '/login' }), (req, res) => {
   res.redirect('/api/pinterest');
 });
+
+/**
+ * Admin
+ */
+app.get('/admin', (req, res) => {
+  res.render('admin/admin');
+});
+app.get('/lesson-form',lessonForm.getTemplate);
+app.post('lesson-form',bodyParser,lessonForm.sendForm);
 
 /**
  * Error Handler.
