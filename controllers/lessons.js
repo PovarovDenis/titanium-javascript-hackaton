@@ -16,18 +16,18 @@ exports.lessonById = (req, res) => {
       lesson: lesson
     });
   });
+}
 
 exports.ListOfLessons = (req, res) => {
 
-  Lesson.find((err, items) => {
+  Lessons.find((err, items) => {
     if(err){
         res.send(err);
         return;
     }
-    res.render('account/lessons/lessonsList/lessonsList.pug', {
+    res.render('account/lessons/lessonsList/lessonsList.pug', { 
       title: 'ShowLessons',
       lessons: items
     });
   })
-
-};
+}
