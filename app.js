@@ -34,7 +34,16 @@ const homeController = require('./controllers/home');
 const userController = require('./controllers/user');
 const apiController = require('./controllers/api');
 const contactController = require('./controllers/contact');
+<<<<<<< HEAD
 const TaskDetailController = require('./controllers/TaskDetailController');
+=======
+const lessonForm = require('./controllers/lessonForm');
+
+>>>>>>> 2d70e5b8dda559282d2c407f13b6cefca08d340b
+/**
+ * Aaaaaa
+ */
+const lessonsList = require('./controllers/lessons');
 /**
  * API keys and Passport configuration.
  */
@@ -145,6 +154,10 @@ app.get('/test', (req, res) => {
 });
 
 /**
+ * Aaaaa
+ */
+app.get('/lessons-list', lessonsList.ListOfLessons);
+/**
  * API examples routes.
  */
 app.get('/api', apiController.getApi);
@@ -224,6 +237,15 @@ app.get('/auth/pinterest', passport.authorize('pinterest', { scope: 'read_public
 app.get('/auth/pinterest/callback', passport.authorize('pinterest', { failureRedirect: '/login' }), (req, res) => {
   res.redirect('/api/pinterest');
 });
+
+/**
+ * Admin
+ */
+app.get('/admin', (req, res) => {
+  res.render('admin/admin');
+});
+app.get('/lesson-form',lessonForm.getTemplate);
+app.post('lesson-form',bodyParser,lessonForm.sendForm);
 
 /**
  * Error Handler.

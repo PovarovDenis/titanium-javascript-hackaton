@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+
 const DetailsSchema = new mongoose.Schema({
     TaskDetails: String
 });
