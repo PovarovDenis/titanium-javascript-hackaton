@@ -2,7 +2,7 @@ extends ../layout
 
 block content
 
-  form.form-horizontal(method='POST')
+  form.form-horizontal(action='lesson-form', method='POST')
     input(type='hidden', name='_csrf', value=_csrf)
     .form-group
       label.col-sm-3.control-label(for='lessonName') Lesson name

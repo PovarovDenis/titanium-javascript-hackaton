@@ -17,3 +17,13 @@ exports.lessonFormPage = (req, res) => {
     title: 'Adminpanel'
   });
 };
+
+/**
+ * GET /
+ * admin/task-form page.
+ */
+exports.taskFormPage = (req, res) => {
+  res.render('admin/task-form', {
+    title: 'Adminpanel'
+  });
+};

@@ -1,0 +1,26 @@
+extends ../layout
+
+block content
+
+  form.form-horizontal(action='task-form', method='POST')
+    input(type='hidden', name='_csrf', value=_csrf)
+    .form-group
+      label.col-sm-3.control-label(for='taskName') Task name
+      .col-sm-7
+        input.form-control(type='text', name='taskName', id='taskName', placeholder='Task name', autofocus, required)
+    .form-group
+      label.col-sm-3.control-label(for='lessonID') Lesson ID
+      .col-sm-7
+        input.form-control(type='text', name='lessonID', id='lessonID', placeholder='Lesson ID', autofocus, required)
+    .form-group
+      label.col-sm-3.control-label(for='taskDescription') Task description
+      .col-sm-7
+        textarea.form-control(name="taskDescription", cols="30", rows="10", id='taskDescription', placeholder='Task description', required)
+    .form-group
+      label.col-sm-3.control-label(for='taskTests') Task tests
+      .col-sm-7
+        textarea.form-control(name="taskTests", cols="30", rows="10", id='taskTests', placeholder='Task tests', required)
+    .form-group
+      .col-sm-offset-3.col-sm-7
+        button.col-sm-3.btn.btn-primary(type='submit')
+          | Add new Task
