@@ -1,12 +1,18 @@
+const Lesson = require('../models/Lessons');
+
 exports.ListOfLessons = (req, res) => {
-  console.log('get lessons')
-  res.render('./lessons/lessonsList/lessonsList.pug', {
-    title: 'ShowLessons',
-    lessons: [
-      {
-        name: 'Lesson 1',
-        description: 'Desc'
-      }
-    ]
-  });
+
+  Lesson.find((err, items) => {
+    if(err){
+        res.send(err);
+        return;
+    }
+    res.render('account/lessons/lessonsList/lessonsList.pug', {
+      title: 'ShowLessons',
+      lessons: items
+    });
+  })
+
+
+ 
 };

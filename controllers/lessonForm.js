@@ -17,9 +17,8 @@ exports.sendForm = (req, res) => {
         }else{
             Lesson.create(lesson, function(err){
                 if(err) return console.log(err);
-                res.send(req.body.less_description);
-                 
-                console.log("Сохранен объект", lesson);
+                res.redirect('/lessons');
+                
               });
         }
       })
