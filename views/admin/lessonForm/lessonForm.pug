@@ -1,0 +1,40 @@
+extends ../../layout
+
+block content
+  .page-header
+    h3 Admin panel
+  form.form-horizontal(id='signup-form', method='POST', action="/lesson-form")
+    input(type='hidden', name='_csrf', value=_csrf)
+    .form-group
+      label.col-sm-3.control-label(for='less_name') Lesson Name
+
+      .col-sm-7
+        input.form-control(type='text', name='less_name', id='less_name', placeholder='Less_name', autofocus, required)
+    .form-group 
+      label.col-sm-3.control-label(for='less_description') Lesson description
+      .col-sm-7
+        textarea.form-control(name="less_description", cols="30", rows="10", id='less_description')
+        button.btn.btn-success(type='submit')
+          i.fa.fa-user-plus
+          | SEND
+
+
+
+        //- <form name="main_form" action="/lesson-form" method="post">
+        //- input(type='hidden', name='_csrf', value=_csrf)
+        //- <label(for="less_name")>#{messageLessName}</label>
+        //- <input type="text" name="less_name"></input>
+        //- <label(for="less_description")>#{messageLessDescription}</label>
+        //- <textarea name="less_description"> </textarea>
+        //- <input type="submit" value="#{submitText}" name="send"></input>
+        //- </form>
+
+        //- <form name="main_form" action="/lesson-form" method="post">
+        //- input(type='hidden', name='_csrf', value=_csrf)
+        //- <label(for="les_na")>#{messageLessName}</label>
+        //- <input class="form-control" type="text" name="less_name" id="le_na"></input>
+        //- <label(for="less_description")>#{messageLessDescription}</label>
+        //- <label for="comment">#{messageLessDescription}</label>
+        //- <textarea class="form-control" rows="5" id="comment" name="less_description"></textarea>
+        //- <input type="submit" value="#{submitText}" name="send"></input>
+        //- </form>

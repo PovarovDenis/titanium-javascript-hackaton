@@ -20,6 +20,8 @@ const expressStatusMonitor = require('express-status-monitor');
 const sass = require('node-sass-middleware');
 const multer = require('multer');
 
+const formBodyParser = require('body-parser');
+
 const upload = multer({ dest: path.join(__dirname, 'uploads') });
 
 /**
@@ -34,7 +36,14 @@ const homeController = require('./controllers/home');
 const userController = require('./controllers/user');
 const apiController = require('./controllers/api');
 const contactController = require('./controllers/contact');
+const TaskDetailController = require('./controllers/TaskDetailController');
+const addNewTaskController = require('./controllers/addNewTask');
+const lessonForm = require('./controllers/lessonForm');
 
+/**
+ * Aaaaaa
+ */
+const lessonsList = require('./controllers/lessons');
 /**
  * API keys and Passport configuration.
  */
@@ -72,6 +81,9 @@ app.use(sass({
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+// Igor.chertman's changes
+app.use(formBodyParser.urlencoded({extended: false}));
+//
 app.use(expressValidator());
 app.use(session({
   resave: true,
@@ -115,6 +127,8 @@ app.use((req, res, next) => {
 });
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
 
+app.get('/controllers/TaskDetailController', TaskDetailController.getDetails);
+
 /**
  * Primary app routes.
  */
@@ -141,6 +155,12 @@ app.get('/test', (req, res) => {
       test: 'name'
   })
 });
+
+/**
+ * Aaaaa
+ */
+
+app.get('/lessons', lessonsList.ListOfLessons);
 
 /**
  * API examples routes.
@@ -222,6 +242,19 @@ app.get('/auth/pinterest', passport.authorize('pinterest', { scope: 'read_public
 app.get('/auth/pinterest/callback', passport.authorize('pinterest', { failureRedirect: '/login' }), (req, res) => {
   res.redirect('/api/pinterest');
 });
+app.get('/add-task', addNewTaskController.addNewTaskController);
+app.post('/add-task', addNewTaskController.create);
+
+/**
+ * Admin
+ */
+app.get('/admin', (req, res) => {
+  res.render('admin/admin');
+});
+app.get('/lesson-form',lessonForm.getTemplate);
+app.post('/lesson-form',lessonForm.sendForm);
+
+app.get('/lessons/:id', lessonsList.lessonById);
 
 /**
  * Error Handler.
