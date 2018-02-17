@@ -182,52 +182,40 @@ TODO
 
 ### 4. Create page for adding new Tasks
 
-  This step is very similar to the previous one.
+  This step is very similar to the previous one. You'll need to add new button to the Admin page *Add new Task*.
+  On clicking the button user will go to the Task form.
+    Task form represents page with 3 inputs: one for *Task name*, one for *Task description* and one for *Task tests*.
+    On *API* you need to implement API endpoint (request handler) and save new lesson to the DB for the Task form.
 
-  Tasks:
-  - [ ] Edit the config and specify the `migrations` field in the knex initialization `Object`, for example:
-    ```js
-      {
-        client: 'pg',
-        connection: '...',
-        migrations: {
-          directory: path.join(__dirname, './migrations')
-        }
-      }
-    ```
-  - [ ] Create one migration file per table (eg. `1-create-user.js`, `2-create-repository.js`, `3-create-contribution.js`) with the following skeleton:
-    - `up` method has the logic for the migration, `down` is for reverting it
-    - The migrations are executed in transactions
-    - The files are executed in alphabetical order
-    ```js
-    'use strict'
+    Tasks:
+    - [ ] Create template using PUG for a new page `/admin/task-form`
+      - Input `type="text"` for Task name
+      - Input `type="text"` for Lesson to which task is related.
+        - Basic option is to use this input as `type="text"` and insert there LessonId manually
+        - Pro option is to use this input as `select` and check Lesson from the list
+      - Input `textarea` for Task description
+      - Input `textarea` for Task tests
+    - [ ] Implement API endpoint for new page `/admin/task-form`
+      - `GET` to serve the template
+      - `POST` to save a new Task to the Database
 
-    const tableName = '...'
+    Tips:
+    - add routes to `app.js`
+    - then add templates to `/views/`
+    - create new controller `/controllers/task.js` for request handlers
+    - add new Collection to the Database and call it `tasks`
 
-    function up(knex) {
-      return knex.schema.createTable(tableName, (table) => {
-        // your code goes here
-      })
-    }
+    Readings:
+    - [Project Structure](https://github.com/PovarovDenis/titanium-javascript-hackaton#project-structure)
+    - [How do I create a new page?](https://github.com/PovarovDenis/titanium-javascript-hackaton#how-do-i-create-a-new-page)
+    - [PUG](https://pugjs.org/api/getting-started.html) HTML preprocessor
+    - [Add new collection to Mongo](https://docs.mongodb.com/manual/reference/method/db.createCollection/)
+    - [Insert new document to Mongo](https://docs.mongodb.com/manual/tutorial/insert-documents/)
 
-    function down(knex) {
-      return knex.schema.dropTableIfExists(tableName)
-    }
-
-    module.exports = {
-      up,
-      down
-    }
-    ```
-  - [ ] Add a `migrate-db` script to the scripts in `package.json`, edit `scripts/migrate-db.js` to add the migration call. Finally, run your migration script to create the tables:
-    ```sh
-    $ npm run migrate-db -- --local
-    ```
-
-  Readings:
-  - [`knex`](http://knexjs.org/) SQL query builder
-  - [`knex` migrations API](http://knexjs.org/#Migrations-API)
-  - [npm scripts](https://docs.npmjs.com/misc/scripts)
+    Extra:
+    - [ ] Add functionality to edit tasks (`/admin/task-form/edit/:TaskId`)
+      - In this step you also need to add functionality to list all tasks in adminpanel (`/admin`) under button *Add new Task*
+    - [ ] Write unit tests for the API endpoints
 
 ### 5. Create page to list all Lessons
 
