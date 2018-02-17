@@ -18,8 +18,8 @@ Table of Contents
 - [Prerequisites](#prerequisites)
 - [Getting Started](#getting-started)
 - [TODO](#todo)
-    - [1. Install Titanium boilerplate and check if tests pass](#1-install-titanium-boilerplate-and-check-if-tests-pass)
-    - [2. Create your own repository](#2-create-your-own-repository)
+    - [1. Fork Titanium boilerplate](#1-fork-titanium-boilerplate)
+    - [2. Install Titanium boilerplate and check if tests pass](#2-install-titanium-boilerplate-and-check-if-tests-pass)
     - [3. Create page for adding new Lessons](#3-create-page-for-adding-new-lessons)
     - [4. Create page for adding new Tasks](#4-create-page-for-adding-new-tasks)
     - [5. Update main page to represent your Idea](#5-update-main-page-to-represent-your-idea)
@@ -111,43 +111,39 @@ restart the server each time you make a small change in code. To install, run
 TODO
 ---------------
 
-### 1. Install Titanium boilerplate and check if tests pass
+### 1. Fork Titanium boilerplate
+
+  To start work with team on the Titanium Hackaton first of all you need to form the repository.
 
   Tasks:
-  - [ ] Create a `GET` endpoint `/hello` returning `Hello Node.js!` in the response body, use the middleware of the `koa-router` package
-  - [ ] Use the `PORT` environment variable to set the port, **make it required**
-  - [ ] Make the tests pass (`npm run test-web`)
-  - [ ] Run the application (eg. `PORT=3000 npm start` and try if it breaks when `PORT` is not provided)
+  - [ ] One of the team forks repository to his Github account
+  - [ ] Repository owner grants accesses to all team members
+  - [ ] All of the team members has cloned project on their laptops
 
   Readings:
-  - [12 factor - Config](https://12factor.net/config)
-  - [Node `process`](https://nodejs.org/api/process.html)
-  - [Koa](http://koajs.com/) web framework
-  - [Koa router](https://github.com/alexmingoia/koa-router/tree/master)
+  - [Fork A Repo](https://help.github.com/articles/fork-a-repo/)
+  - [Inviting collaborators to a personal repository](https://help.github.com/articles/inviting-collaborators-to-a-personal-repository/)
+
+### 2. Install Titanium boilerplate and check if tests pass
+
+  Now you can install all needed dependencies and a Database to run the application.
+  Successful criteria on this step is: you have working app on `localhost:8080` and you DB is ready to store all your data.
+
+  Tasks:
+  - [ ] Install all npm packages
+  - [ ] Install and run Mongo DB
+  - [ ] Run the application (`npm run start`)
+  - [ ] Check if the tests pass (`npm run test`)
+  - [ ] Check if the tests pass (`npm run test`)
+  - [ ] Get familiar with the application, in general
+
+  Readings:
+  - [Install Node.js with npm](https://nodejs.org/en/download/)
+  - [Install Mongo DB](https://docs.mongodb.com/manual/installation/)
   - [Mocha](https://mochajs.org/) test framework
   - [Chai](http://chaijs.com/api/bdd/) assertion library
-
-### 2. Create your own repository
-
-  In this step you will implement two functions, wrappers for the GitHub API. You will use them to get information from GitHub later.
-
-  Tasks:
-  - [ ] `searchRepositories(query)`: should search for repositories given certain programming languages and/or keywords
-    - The `query` function parameter is an `Object` of key-value pairs of the request query parameters (eg. `{ q: 'language:javascript' }`, defaults to `{}`)
-    - It returns a `Promise` of the HTTP response without modification
-  - [ ] `getContributors(repository, query)`: get contributors list with additions, deletions, and commit counts (statistics)
-    - `repository` function parameter is a String of the repository full name, including the owner (eg. `RisingStack/cache`)
-    - The `query` function parameter is an `Object` of key-value pairs of the request query parameters (defaults to `{}`)
-    - It returns a `Promise` of the HTTP response without modification
-  - [ ] Write unit tests for each function, use `nock` to intercept HTTP calls to the GitHub API endpoints
-
-  Readings:
-  - [Github API v3](https://developer.github.com/v3)
-  - [`request`](https://www.npmjs.com/package/request-promise) & [`request-promise-native`](https://www.npmjs.com/package/request-promise-native) packages
-  - [`nock`](https://github.com/node-nock/nock) for mocking endpoints
-
-  Extra:
-  - Use the [Github API v4 - GraphQL API](https://developer.github.com/v4) instead
+  - [Node `process`](https://nodejs.org/api/process.html)
+  - [Express](http://expressjs.com/ru/) web framework
 
 ### 3. Create page for adding new Lessons
 
