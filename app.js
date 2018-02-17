@@ -36,6 +36,7 @@ const homeController = require('./controllers/home');
 const userController = require('./controllers/user');
 const apiController = require('./controllers/api');
 const contactController = require('./controllers/contact');
+const TaskDetailController = require('./controllers/TaskDetailController');
 const addNewTaskController = require('./controllers/addNewTask');
 const lessonForm = require('./controllers/lessonForm');
 
@@ -126,6 +127,8 @@ app.use((req, res, next) => {
 });
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
 
+app.get('/controllers/TaskDetailController', TaskDetailController.getDetails);
+
 /**
  * Primary app routes.
  */
@@ -156,9 +159,7 @@ app.get('/test', (req, res) => {
 /**
  * Aaaaa
  */
-app.get('/lessons', (req, res) => {
-res.render('account/lessons/lessonsList/lessonsList');
-});
+
 app.get('/lessons', lessonsList.ListOfLessons);
 
 /**
@@ -252,6 +253,8 @@ app.get('/admin', (req, res) => {
 });
 app.get('/lesson-form',lessonForm.getTemplate);
 app.post('/lesson-form',lessonForm.sendForm);
+
+app.get('/lessons/:id', lessonsList.lessonById);
 
 /**
  * Error Handler.

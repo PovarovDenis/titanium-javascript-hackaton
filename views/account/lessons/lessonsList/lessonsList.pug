@@ -2,5 +2,11 @@ extends ../../../layout
 
 block content
   .page-header
-    h3 #{title}
+    h3 LIst of lessons
+    ul
+    - for (var i = 0; i < lessons.length; ++i) {
+      li 
+        a(href='/lessons/' + lessons[i]._id) #{lessons[i].lessonName} - #{lessons[i].lessonDescription}
+    - }
+    
   
