@@ -155,10 +155,10 @@ TODO
   On *API* you need to implement API endpoint (request handler) and save new lesson to the DB for the Lesson form.
 
   Tips:
-    - add routes to `app.js`
-    - then add templates to `/views/`
-    - create new controller `/controllers/lesson.js` for request handlers
-    - add new Collection to the Database and call it `lessons`
+  - add routes to `app.js`
+  - then add templates to `/views/`
+  - create new controller `/controllers/lesson.js` for request handlers
+  - add new Collection to the Database and call it `lessons`
 
   Tasks:
   - [ ] Create template using PUG for a new page `/admin/lesson-form`
