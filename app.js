@@ -253,6 +253,8 @@ app.get('/admin', (req, res) => {
 app.get('/lesson-form',lessonForm.getTemplate);
 app.post('/lesson-form',lessonForm.sendForm);
 
+app.get('/lessons/:id', lessonsList.lessonById);
+
 /**
  * Error Handler.
  */
