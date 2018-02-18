@@ -1,11 +1,17 @@
+const Lesson = require('../models/Lesson');
+
 /**
  * GET /
  * admin page.
  */
 exports.adminPage = (req, res) => {
-  res.render('admin/admin', {
-    title: 'Adminpanel'
-  });
+  Lesson.find()
+    .then((lesson) => {
+      res.render('admin/admin', {
+        title: 'Adminpanel',
+        db: lesson
+      });
+    });
 };
 
 /**

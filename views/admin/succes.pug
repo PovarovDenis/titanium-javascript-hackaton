@@ -1,8 +1,8 @@
 extends ../layout
 
 block content
-
-  form.form-horizontal(action='../admin/lesson-form', method='GET')
+  h1 #{msg}
+  form.form-horizontal(action='admin/lesson-form', method='GET')
     |
     .col-sm-offset-3.col-sm-7
       button.col-sm-3.btn.btn-primary(type='submit')
@@ -12,8 +12,8 @@ block content
       .col-sm-6
         p #{lesson.name}
         p
-          a.btn.btn-default(href='../admin/lesson-form/edit/' + lesson.id, role='button') Edit »
-  form.form-horizontal(action='../admin/task-form', method='GET')
+          a.btn.btn-default(href='admin/lesson-form/edit/' + lesson.id, role='button') Edit »
+  form.form-horizontal(action='admin/task-form', method='GET')
     |
     .col-sm-offset-3.col-sm-7
       button.col-sm-3.btn.btn-primary(type='submit')
