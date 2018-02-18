@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  h1 Task name: #{task.name} Lesson ID:
+  p.lead Task description #{task.description}
+  hr
+  .row
+      //for lesson in db
+      .col-sm-6
+        h2 input textarea to provide the solution. Also there must be a button Check solution. 
+        p By clicking on this button will be sent request to our runner API http://78.46.208.140:3031 to check the solution using your tests.
+        p
+          //a.btn.btn-default(href='../lesson/' + lesson.id, role='button') View details »
+

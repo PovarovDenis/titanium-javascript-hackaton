@@ -23,3 +23,18 @@ exports.postTask = (req, res) => {
 
   task.save();
 };
+
+exports.taskDetailedPage = (req, res) => {
+  Task.findOne({ _id: req.params.id }, (err, task) => {
+    if (err) {
+      //res.render('error', {});
+      //req.flash('errors', { msg: 'Account with that email address already exists.' });
+    }
+    if (task) {
+      return res.render('task', {
+        title: 'Task ',
+        task: this
+      });
+    }
+  });
+};

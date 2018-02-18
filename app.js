@@ -127,6 +127,7 @@ app.get('/admin/lesson-form', adminController.lessonFormPage);
 app.get('/admin/task-form', adminController.taskFormPage);
 app.get('/lessons', lessonController.lessonsPage);
 app.get('/lesson/:id', lessonController.lessonDetailedPage);
+app.get('/task/:id', taskController.taskDetailedPage);
 app.post('/admin/lesson-form', lessonController.postLesson);
 app.post('/admin/task-form', taskController.postTask);
 
