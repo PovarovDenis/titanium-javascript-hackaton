@@ -1,14 +1,14 @@
 extends layout
 
 block content
-  h1 Lessons
-  p.lead This page provides the list of all lessons
+  h1 Lesson name: #{lesson.name}
+  p.lead Lesson description #{lesson.description}
   hr
   .row
       //for lesson in db
       .col-sm-6
-        h2 #{lesson.name}
-        p #{lesson.description}
+        h2 some info
+        p more info
         p
-          a.btn.btn-default(href='../lesson/' + lesson.id, role='button') View details »
+          //a.btn.btn-default(href='../lesson/' + lesson.id, role='button') View details »
 
