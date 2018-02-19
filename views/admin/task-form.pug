@@ -11,7 +11,10 @@ block content
     .form-group
       label.col-sm-3.control-label(for='lessonID') Lesson ID
       .col-sm-7
-        input.form-control(type='text', name='lessonID', id='lessonID', placeholder='Lesson ID', autofocus, required)
+        select(name='lessonID', id='lessonID')
+          each lesson in db
+            option(value=lesson.id) #{lesson.name} ID: #{lesson.id}
+        //input.form-control(type='text', name='lessonID', id='lessonID', placeholder='Lesson ID', autofocus, required)
     .form-group
       label.col-sm-3.control-label(for='taskDescription') Task description
       .col-sm-7

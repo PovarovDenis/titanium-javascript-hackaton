@@ -29,7 +29,11 @@ exports.lessonFormPage = (req, res) => {
  * admin/task-form page.
  */
 exports.taskFormPage = (req, res) => {
-  res.render('admin/task-form', {
-    title: 'Adminpanel'
-  });
+  Lesson.find()
+    .then((lesson) => {
+      res.render('admin/task-form', {
+        title: 'Adminpanel',
+        db: lesson
+      });
+    });
 };
