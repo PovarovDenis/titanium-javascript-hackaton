@@ -8,7 +8,7 @@ block content
       button.col-sm-3.btn.btn-primary(type='submit')
         | Add new Lesson
   .row
-    for lesson in db
+    for lesson in lessonDB
       .col-sm-6
         p #{lesson.name}
         p
@@ -18,3 +18,9 @@ block content
     .col-sm-offset-3.col-sm-7
       button.col-sm-3.btn.btn-primary(type='submit')
         | Add new Task
+  .row
+    for task in taskDB
+      .col-sm-6
+        p #{task.name}
+        p
+          a.btn.btn-default(href='../admin/task-form/edit/' + task.id, role='button') Edit »

@@ -128,12 +128,13 @@ app.get('/admin/task-form', adminController.taskFormPage);
 app.get('/lessons', lessonController.lessonsPage);
 app.get('/lesson/:id', lessonController.lessonDetailedPage);
 app.get('/admin/lesson-form/edit/:id', lessonController.lessonEditPage);
+app.get('/admin/task-form/edit/:id', taskController.taskEditPage);
 app.get('/task/:id', taskController.taskDetailedPage);
-app.post('/admin', lessonController.postLesson);
+app.post('/admin', adminController.postController);
 // think I understood WHY update dont work
 // deleted ", lessonController.editLesson);" from POST to /admin
 // app.post('/admin/lesson-form/edit/:id', lessonController.editLesson);
-app.post('/admin/task-form', taskController.postTask);
+//app.post('/admin/task-form', taskController.postTask);
 
 /**
  * Primary app routes.

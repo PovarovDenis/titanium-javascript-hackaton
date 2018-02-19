@@ -2,16 +2,19 @@ extends ../layout
 
 block content
 
-  form.form-horizontal(action='task-form', method='POST')
+  form.form-horizontal(action='../../admin', method='POST')
     input(type='hidden', name='_csrf', value=_csrf)
+    input(type='hidden', name='action', value='task-form')
+    input(type='hidden', name='taskId', value=undefined)
     .form-group
       label.col-sm-3.control-label(for='taskName') Task name
       .col-sm-7
         input.form-control(type='text', name='taskName', id='taskName', placeholder='Task name', autofocus, required)
     .form-group
-      label.col-sm-3.control-label(for='lessonID') Lesson ID
+      label.col-sm-3.control-label(for='selectLessonId') Lesson ID
       .col-sm-7
-        select(name='lessonID', id='lessonID')
+        select(name='selectLessonId', id='selectLessonId')
+          //option(value=undefined) Choose the Lesson to which task is related
           each lesson in db
             option(value=lesson.id) #{lesson.name} ID: #{lesson.id}
         //input.form-control(type='text', name='lessonID', id='lessonID', placeholder='Lesson ID', autofocus, required)

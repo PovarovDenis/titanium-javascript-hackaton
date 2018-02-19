@@ -4,6 +4,7 @@ block content
 
   form.form-horizontal(action='../../admin', method='POST')
     input(type='hidden', name='_csrf', value=_csrf)
+    input(type='hidden', name='action', value='lesson-form')
     input(type='hidden', name='lessonId', value=undefined)
     .form-group
       label.col-sm-3.control-label(for='lessonName') Lesson name
