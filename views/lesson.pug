@@ -5,10 +5,10 @@ block content
   p.lead Lesson description #{lesson.description}
   hr
   .row
-      //for lesson in db
+    for task in db
       .col-sm-6
-        h2 some info
-        p list of Tasks related to the Lesson (just task names).
+        h2 Task: #{task.name}
+        p Description: #{task.description}
         p
           //a.btn.btn-default(href='../lesson/' + lesson.id, role='button') View details »
 

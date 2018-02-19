@@ -1,4 +1,5 @@
 const Lesson = require('../models/Lesson');
+const Task = require('../models/Task');
 
 /**
  * GET /
@@ -20,16 +21,20 @@ exports.lessonsPage = (req, res) => {
  */
 exports.lessonDetailedPage = (req, res) => {
   Lesson.findOne({ _id: req.params.id }, (err, lesson) => {
-    if (err) {
-      //res.render('error', {});
-      //req.flash('errors', { msg: 'Account with that email address already exists.' });
-    }
-    if (lesson) {
-      return res.render('lesson', {
-        title: 'Lesson ',
-        lesson: this
+    Task.find({ lessonId: req.params.id })
+      .then((task) => {
+        if (err) {
+          // res.render('error', {});
+          // req.flash('errors', { msg: 'Account with that email address already exists.' });
+        }
+        if (lesson) {
+          return res.render('lesson', {
+            title: 'Lesson ',
+            lesson: lesson, // or this
+            db: task
+          });
+        }
       });
-    }
   });
 };
 
