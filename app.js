@@ -129,8 +129,10 @@ app.get('/lessons', lessonController.lessonsPage);
 app.get('/lesson/:id', lessonController.lessonDetailedPage);
 app.get('/admin/lesson-form/edit/:id', lessonController.lessonEditPage);
 app.get('/task/:id', taskController.taskDetailedPage);
-app.post('/admin', lessonController.postLesson, lessonController.editLesson);
-//app.post('/admin/lesson-form/edit/:id', lessonController.editLesson);
+app.post('/admin', lessonController.postLesson);
+// think I understood WHY update dont work
+// deleted ", lessonController.editLesson);" from POST to /admin
+// app.post('/admin/lesson-form/edit/:id', lessonController.editLesson);
 app.post('/admin/task-form', taskController.postTask);
 
 /**
