@@ -1,14 +1,24 @@
 extends layout
 
 block content
-  h1 Task name: #{task.name} Lesson ID:
+  h1 Task name: #{task.name} Lesson ID: #{task.lessonId}
   p.lead Task description #{task.description}
-  hr
-  .row
+  p Verification with AJAX on plain JS
+    hr
+    //form.form-horizontal(action='#', method='POST')
+    input(type='hidden', name='_csrf', value=_csrf)
+    .row
       //for lesson in db
-      .col-sm-6
-        h2 input textarea to provide the solution. Also there must be a button Check solution. 
-        p By clicking on this button will be sent request to our runner API http://78.46.208.140:3031 to check the solution using your tests.
-        p
-          //a.btn.btn-default(href='../lesson/' + lesson.id, role='button') View details »
-
+      .form-group
+        label.col-sm-3.control-label(for='taskSolution') Solution
+        .col-sm-7
+          textarea.form-control(name="taskSolution", cols="30", rows="10", id='taskTests', placeholder='Input your solution', required)
+      .form-group
+        .col-sm-offset-3.col-sm-7
+          button.col-sm-3.btn.btn-primary(type='submit' id='btnForAJAX')
+            | Check the solution
+            //a.btn.btn-default(href='http://78.46.208.140:3031', role='button') Check the solution »
+      .form-group
+        .col-sm-offset-3.col-sm-7
+          div(id="fldForAJAX")
+      script(src="../js/ajax.js")
