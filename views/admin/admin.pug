@@ -1,26 +1,24 @@
 extends ../layout
 
 block content
-
-  form.form-horizontal(action='../admin/lesson-form', method='GET')
-    |
-    .col-sm-offset-3.col-sm-7
-      button.col-sm-3.btn.btn-primary(type='submit')
-        | Add new Lesson
   .row
-    for lesson in lessonDB
-      .col-sm-6
-        p #{lesson.name}
-        p
-          a.btn.btn-default(href='../admin/lesson-form/edit/' + lesson.id, role='button') Edit »
-  form.form-horizontal(action='../admin/task-form', method='GET')
-    |
-    .col-sm-offset-3.col-sm-7
-      button.col-sm-3.btn.btn-primary(type='submit')
-        | Add new Task
-  .row
-    for task in taskDB
-      .col-sm-6
-        p #{task.name}
-        p
-          a.btn.btn-default(href='../admin/task-form/edit/' + task.id, role='button') Edit »
+    .col-sm-6
+      .jumbotron
+        form.form-horizontal(action='../admin/lesson-form', method='GET')
+          button.center-block.btn.btn-success.btn-lg(type='submit') Add new Lesson
+      for lesson in lessonDB
+        ul.nav.nav-pills
+          p
+            a.list-group-item.list-group-item-success(href='../admin/lesson-form/edit/' + lesson.id, role='button')
+              i.fa.fa-pencil
+              | #{lesson.name}
+    .col-sm-6
+      .jumbotron
+        form.form-horizontal(action='../admin/task-form', method='GET')
+          button.center-block.btn.btn-success.btn-lg(type='submit') Add new Task
+      for task in taskDB
+        ul.nav.nav-pills
+          p
+            a.list-group-item.list-group-item-success(href='../admin/task-form/edit/' + task.id, role='button')
+              i.fa.fa-pencil
+              | #{task.name}

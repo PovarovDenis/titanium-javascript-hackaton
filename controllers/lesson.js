@@ -25,7 +25,7 @@ exports.lessonDetailedPage = (req, res) => {
       .then((task) => {
         if (err) {
           // res.render('error', {});
-          // req.flash('errors', { msg: 'Account with that email address already exists.' });
+          // req.flash('errors', { msg: err });
         }
         if (lesson) {
           return res.render('lesson', {
@@ -46,7 +46,7 @@ exports.lessonEditPage = (req, res) => {
   Lesson.findOne({ _id: req.params.id }, (err, lesson) => {
     if (err) {
       // res.render('error', {});
-      // req.flash('errors', { msg: 'Account with that email address already exists.' });
+      // req.flash('errors', { msg: err });
     }
     if (lesson) {
       return res.render('admin/lesson-edit', {

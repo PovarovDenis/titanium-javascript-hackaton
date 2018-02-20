@@ -14,9 +14,8 @@ block content
       label.col-sm-3.control-label(for='lessonDescription') Lesson description
       .col-sm-7
         textarea.form-control(name='lessonDescription', cols='30', rows='10', id='lessonDescription', placeholder='Lesson description', required).form-control= lessonDescription
-        //value=lessonDescription don't work.
-        //i found a fix: .form-control= lessonDescription
     .form-group
       .col-sm-offset-3.col-sm-7
         button.col-sm-3.btn.btn-primary(type='submit')
-          | OK
+          i.fa.fa-save
+          | Save

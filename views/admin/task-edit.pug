@@ -20,12 +20,13 @@ block content
     .form-group
       label.col-sm-3.control-label(for='taskDescription') Task description
       .col-sm-7
-        textarea.form-control(name="taskDescription", cols="30", rows="10", id='taskDescription', placeholder='Task description', required).form-control= taskDescription
+        textarea.form-control(name="taskDescription", cols="30", rows="4", id='taskDescription', placeholder='Task description', required).form-control= taskDescription
     .form-group
       label.col-sm-3.control-label(for='taskTests') Task tests
       .col-sm-7
-        textarea.form-control(name="taskTests", cols="30", rows="10", id='taskTests', placeholder='Task tests', required).form-control= taskTests
+        textarea.form-control(name="taskTests", cols="30", rows="7", id='taskTests', placeholder='Task tests', required).form-control= taskTests
     .form-group
       .col-sm-offset-3.col-sm-7
         button.col-sm-3.btn.btn-primary(type='submit')
-          | OK
+          i.fa.fa-save
+          | Save

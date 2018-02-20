@@ -10,7 +10,7 @@ exports.taskDetailedPage = (req, res) => {
   Task.findOne({ _id: req.params.id }, (err, task) => {
     if (err) {
       // res.render('error', {});
-      // req.flash('errors', { msg: 'Account with that email address already exists.' });
+      // req.flash('errors', { msg: err });
     }
     if (task) {
       return res.render('task', {
@@ -31,7 +31,7 @@ exports.taskEditPage = (req, res) => {
       .then((lesson) => {
         if (err) {
           // res.render('error', {});
-          // req.flash('errors', { msg: 'Account with that email address already exists.' });
+          // req.flash('errors', { msg: err });
         }
         if (task) {
           return res.render('admin/task-edit', {

@@ -1,14 +1,14 @@
 extends layout
 
 block content
-  h1 Lesson name: #{lesson.name}
-  p.lead Lesson description #{lesson.description}
-  hr
+  .well
+    h1 #{lesson.name}
+    p.lead #{lesson.description}
   .row
     for task in db
-      .col-sm-6
-        h2 Task: #{task.name}
-        p Description: #{task.description}
+      .col-xs-8.col-sm-6.col-md-5.col-lg-4
+        p.lead #{task.name}
+        p #{task.description}
         p
-          a.btn.btn-default(href='../task/' + task.id, role='button') View details »
+          a.btn.btn-primary(href='../task/' + task.id, role='button') View details »
 
