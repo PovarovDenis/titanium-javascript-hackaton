@@ -2,8 +2,8 @@ const Lesson = require('../models/Lesson');
 const Task = require('../models/Task');
 
 /**
- * GET /
- * admin page.
+ * GET /admin
+ * Admin panel.
  */
 exports.adminPage = (req, res) => {
   Lesson.find()
@@ -20,8 +20,8 @@ exports.adminPage = (req, res) => {
 };
 
 /**
- * GET /
- * admin/lesson-form page.
+ * GET /admin/lesson-form
+ * Lesson-form page.
  */
 exports.lessonFormPage = (req, res) => {
   res.render('admin/lesson-form', {
@@ -30,8 +30,8 @@ exports.lessonFormPage = (req, res) => {
 };
 
 /**
- * GET /
- * admin/task-form page.
+ * GET /admin/task-form
+ * Task-form page.
  */
 exports.taskFormPage = (req, res) => {
   Lesson.find()
@@ -44,14 +44,10 @@ exports.taskFormPage = (req, res) => {
 };
 
 /**
- * New POST lesson method/
- * Creating and editing lessons
+ * POST /admin
+ * Universal POST method
  */
 exports.postController = (req, res) => {
-  console.log(req.body.action);
-  console.log(req.body.lessonId);
-  console.log(req.body.taskId);
-  // Dunno why "switch (req.body.action)" doesnt work
   if (req.body.action === 'lesson-form') {
     console.log('// newLesson();');
     const lesson = new Lesson({ name: req.body.lessonName,
@@ -84,27 +80,3 @@ exports.postController = (req, res) => {
   return res.redirect('admin');
   // res.render('admin/succes', { msg: 'Lesson creation succeseful' });
 };
-
-  /*}
-  if (req.body.action === 'lesson-form') {
-    newLesson (req.body.lessonId)
-  }
-  req.assert('lessonName', 'Lesson name cannot be blank').notEmpty();
-  req.assert('lessonDescription', 'Lesson description cannot be blank').notEmpty();
-  // const errors = req.validationErrors();
-  // if (errors) { req.flash('errors', errors); return res.redirect('admin/lesson-form'); }
-  if (req.body.lessonId === undefined) {
-    const lesson = new Lesson({
-      name: req.body.lessonName,
-      description: req.body.lessonDescription
-    });
-    lesson.save();
-  } else {
-    Lesson.updateOne(
-      { _id: req.body.lessonId },
-      { $set: { name: req.body.lessonName, description: req.body.lessonDescription } })
-      .then((err) => { /*process result*/ /*});
-  }
-  return res.redirect('admin');
-  //res.render('admin/succes', { msg: 'Lesson creation succeseful' });
-};*/

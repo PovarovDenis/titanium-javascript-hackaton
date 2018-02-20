@@ -2,8 +2,8 @@ const Lesson = require('../models/Lesson');
 const Task = require('../models/Task');
 
 /**
- * GET /
- * lessons page.
+ * GET /lessons
+ * Lessons page.
  */
 exports.lessonsPage = (req, res) => {
   Lesson.find()
@@ -16,8 +16,8 @@ exports.lessonsPage = (req, res) => {
 };
 
 /**
- *  GET /
- * lesson detailed page.
+ * GET /lesson/:id
+ * Lesson detailed page.
  */
 exports.lessonDetailedPage = (req, res) => {
   Lesson.findOne({ _id: req.params.id }, (err, lesson) => {
@@ -30,7 +30,7 @@ exports.lessonDetailedPage = (req, res) => {
         if (lesson) {
           return res.render('lesson', {
             title: 'Lesson ',
-            lesson: lesson, // or this
+            lesson,
             db: task
           });
         }
@@ -38,11 +38,15 @@ exports.lessonDetailedPage = (req, res) => {
   });
 };
 
+/**
+ * GET admin/lesson-form/edit/:id
+ * Lesson edit page.
+ */
 exports.lessonEditPage = (req, res) => {
   Lesson.findOne({ _id: req.params.id }, (err, lesson) => {
     if (err) {
-      //res.render('error', {});
-      //req.flash('errors', { msg: 'Account with that email address already exists.' });
+      // res.render('error', {});
+      // req.flash('errors', { msg: 'Account with that email address already exists.' });
     }
     if (lesson) {
       return res.render('admin/lesson-edit', {

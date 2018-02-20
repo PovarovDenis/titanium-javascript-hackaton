@@ -1,18 +1,18 @@
 extends layout
 
 block content
-  h1 Task name: #{task.name} Lesson ID: #{task.lessonId}
+  h1 Task name: #{task.name} (Lesson ID: #{task.lessonId})
   p.lead Task description #{task.description}
-  p Verification with AJAX on plain JS
+  p 
     hr
-    //form.form-horizontal(action='#', method='POST')
     input(type='hidden', name='_csrf', value=_csrf)
+    input(type='hidden', name='taskTests', id='taskTests', value=task.tests)
     .row
       //for lesson in db
       .form-group
         label.col-sm-3.control-label(for='taskSolution') Solution
         .col-sm-7
-          textarea.form-control(name="taskSolution", cols="30", rows="10", id='taskTests', placeholder='Input your solution', required)
+          textarea.form-control(name="taskSolution", cols="30", rows="10", id='taskSolution', placeholder='Input your solution', required)
       .form-group
         .col-sm-offset-3.col-sm-7
           button.col-sm-3.btn.btn-primary(type='submit' id='btnForAJAX')

@@ -14,10 +14,9 @@ block content
       label.col-sm-3.control-label(for='selectLessonId') Lesson ID
       .col-sm-7
         select(name='selectLessonId', id='selectLessonId')
-          //option(value=undefined) Choose the Lesson to which task is related
+          option(value=undefined selected=true)
           each lesson in db
-            option(value=lesson.id) #{lesson.name} ID: #{lesson.id}
-        //input.form-control(type='text', name='lessonID', id='lessonID', placeholder='Lesson ID', autofocus, required)
+            option(value=lesson.id) #{lesson.name} (ID: #{lesson.id})
     .form-group
       label.col-sm-3.control-label(for='taskDescription') Task description
       .col-sm-7

@@ -1,10 +1,10 @@
 const Task = require('../models/Task');
 const Lesson = require('../models/Lesson');
-const request = require('request');
+// const request = require('request');
 
 /**
- * Post khjkhkhkh
- * 
+ * GET /task/:id
+ * Task detailed page.
  */
 exports.taskDetailedPage = (req, res) => {
   Task.findOne({ _id: req.params.id }, (err, task) => {
@@ -15,13 +15,16 @@ exports.taskDetailedPage = (req, res) => {
     if (task) {
       return res.render('task', {
         title: 'Task ',
-        task: task
+        task
       });
     }
   });
 };
 
-
+/**
+ * GET admin/task-form/edit/:id
+ * Task edit page.
+ */
 exports.taskEditPage = (req, res) => {
   Task.findOne({ _id: req.params.id }, (err, task) => {
     Lesson.find()
@@ -45,6 +48,11 @@ exports.taskEditPage = (req, res) => {
   });
 };
 
+/**
+ * POST http://78.46.208.140:3031
+ * Checking the solution with Node.js request module.
+ * DEPRECATED, BECAUSE AJAX WAS IMPLEMENTED ON CLIENT SIDE !!!
+ */ /*
 exports.checkTaskSolution = (req, res) => {
   request({ method: 'POST',
     uri: 'http://78.46.208.140:3031',
@@ -63,30 +71,6 @@ exports.checkTaskSolution = (req, res) => {
       });
     }
   });
-  res.render
+  // res.render
 };
-
-
-
-exports.postCheckSolution = (req, res) => {
-  // request.post('http://78.46.208.140:3031', {solution:res.body.solution, test:res.body.test});
-  request.post({
-          url: 'http://78.46.208.140:3031',
-          body: JSON.stringify({solution: req.body.solution, test: req.body.test})
-      },
-      function optionalCallback(err, httpResponse, body) {
-          if (err) {
-              return console.error('upload failed:', err);
-          }
-          console.log('Upload successful!  Server responded with:', body);
-          // req.flash('errors', body);
-          // res.send(body);
-          body = JSON.parse(body)
-          res.render('task/check', {
-            tests: body.tests,
-            failed: body.failed,
-            msg: body.stderr
-          });
-      }
-  );
-}
+*/
