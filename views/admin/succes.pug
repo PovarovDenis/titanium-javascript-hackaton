@@ -1,0 +1,20 @@
+extends ../layout
+
+block content
+  h1 #{msg}
+  form.form-horizontal(action='admin/lesson-form', method='GET')
+    |
+    .col-sm-offset-3.col-sm-7
+      button.col-sm-3.btn.btn-primary(type='submit')
+        | Add new Lesson
+  .row
+    for lesson in db
+      .col-sm-6
+        p #{lesson.name}
+        p
+          a.btn.btn-default(href='admin/lesson-form/edit/' + lesson.id, role='button') Edit »
+  form.form-horizontal(action='admin/task-form', method='GET')
+    |
+    .col-sm-offset-3.col-sm-7
+      button.col-sm-3.btn.btn-primary(type='submit')
+        | Add new Task

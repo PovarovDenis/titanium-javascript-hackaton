@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  .well
+    h1 Lessons
+    p.lead This page provides the list of all lessons
+  .row
+    for lesson in db
+      .col-xs-8.col-sm-6.col-md-5.col-lg-4
+        p.lead #{lesson.name}
+        p #{lesson.description}
+        p
+          a.btn.btn-primary(href='../lesson/' + lesson.id, role='button') View details »
+

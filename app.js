@@ -30,6 +30,9 @@ dotenv.load({ path: '.env.example' });
 /**
  * Controllers (route handlers).
  */
+const adminController = require('./controllers/admin'); 
+const lessonController = require('./controllers/lesson'); 
+const taskController = require('./controllers/task');
 const homeController = require('./controllers/home');
 const userController = require('./controllers/user');
 const apiController = require('./controllers/api');
@@ -114,6 +117,20 @@ app.use((req, res, next) => {
   next();
 });
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
+
+
+/**
+ * New app routes.
+ */
+app.get('/admin', adminController.adminPage);
+app.get('/admin/lesson-form', adminController.lessonFormPage);
+app.get('/admin/task-form', adminController.taskFormPage);
+app.get('/lessons', lessonController.lessonsPage);
+app.get('/lesson/:id', lessonController.lessonDetailedPage);
+app.get('/admin/lesson-form/edit/:id', lessonController.lessonEditPage);
+app.get('/admin/task-form/edit/:id', taskController.taskEditPage);
+app.get('/task/:id', taskController.taskDetailedPage);
+app.post('/admin', adminController.postController);
 
 /**
  * Primary app routes.

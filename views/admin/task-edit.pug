@@ -1,0 +1,32 @@
+extends ../layout
+
+block content
+
+  form.form-horizontal(action='../../../admin', method='POST')
+    input(type='hidden', name='_csrf', value=_csrf)
+    input(type='hidden', name='action', value='task-edit')
+    input(type='hidden', name='taskId', value=taskId)
+    .form-group
+      label.col-sm-3.control-label(for='taskName') Task name
+      .col-sm-7
+        input.form-control(type='text', name='taskName', id='taskName', placeholder='Task name', autofocus, required, value=taskName)
+    .form-group
+      label.col-sm-3.control-label(for='lessonID') Lesson ID
+      .col-sm-7
+        select(name='selectLessonId', id='selectLessonId')
+          option(value=undefined selected=lessonId === undefined)
+          each lesson in db
+            option(value=lesson.id selected=lesson.id === lessonId) #{lesson.name} (ID: #{lesson.id})
+    .form-group
+      label.col-sm-3.control-label(for='taskDescription') Task description
+      .col-sm-7
+        textarea.form-control(name="taskDescription", cols="30", rows="4", id='taskDescription', placeholder='Task description', required).form-control= taskDescription
+    .form-group
+      label.col-sm-3.control-label(for='taskTests') Task tests
+      .col-sm-7
+        textarea.form-control(name="taskTests", cols="30", rows="7", id='taskTests', placeholder='Task tests', required).form-control= taskTests
+    .form-group
+      .col-sm-offset-3.col-sm-7
+        button.col-sm-3.btn.btn-primary(type='submit')
+          i.fa.fa-save
+          | Save

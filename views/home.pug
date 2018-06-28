@@ -1,27 +1,40 @@
 extends layout
 
 block content
-  h1 Hackathon Starter
-  p.lead A boilerplate for Node.js web applications.
-  hr
+  .jumbotron
+    h1 Create your own teaching resource!
+    p.lead In today's world internet is the most popular way of connecting with the people. 
+      a(href="/") Our site
+      |  gives you the opportunity to create your own lessons and to share them with your friends and your students to connect with the people around the world.
+    a.btn.btn-success.btn-lg Get started today
   .row
-    .col-sm-6
-      h2 Heading
-      p Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+    .col-sm-6.col-md-4.col-lg-2
+      h2 Admin panel
+      p The site is under construction and everyone can test our new Admin panel for creating Lessons and Tasks. Just click the link below.
       p
-        a.btn.btn-default(href='#', role='button') View details »
-    .col-sm-6
-      h2 Heading
-      p Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+        a.btn.btn-success(href='admin', role='button') Admin panel »
+    .col-sm-6.col-md-4.col-lg-2
+      h2 Lessons
+      p This section contains all the lessons created by our community. You can put your solution for a task and check it. (Beta version)
       p
-        a.btn.btn-default(href='#', role='button') View details »
-    .col-sm-6
-      h2 Heading
-      p Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+        a.btn.btn-success(href='lessons', role='button') View all lessons »
+    .col-sm-6.col-md-4.col-lg-2
+      h2 Bootstrap
+      p This site uses Bootstrap as main CSS framework. Bootstrap is a powerful front-end framework for faster and easier web development.
       p
-        a.btn.btn-default(href='#', role='button') View details »
-    .col-sm-6
-      h2 Heading
-      p Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+        a.btn.btn-success(href='https://getbootstrap.com', role='button') Get Bootstrap »
+    .col-sm-6.col-md-4.col-lg-2
+      h2 Sample section
+      p We like this template, but without this section this page is not so cool and looks empty. So, it will be updatеd in near future. Or, here could be your advertisement.
       p
-        a.btn.btn-default(href='#', role='button') View details »
+        a.btn.btn-success(href='/', role='button') Home page »
+    .col-sm-6.col-md-4.col-lg-2
+      h2 Titanium Hackaton
+      p This site was made within the Titanium.Codes JavaScript Hackaton. You can click the link below for go to the official Hackaton repository on GitHub.
+      p
+        a.btn.btn-success(href='https://github.com/PovarovDenis/titanium-javascript-hackaton', role='button') JS Hackaton »
+    .col-sm-6.col-md-4.col-lg-2
+      h2 Hackaton Starter
+      p This project uses the Hackaton Starter Pack, that provides a way to make your website super fast. Click to view the original repository.
+      p
+        a.btn.btn-success(href='https://github.com/sahat/hackathon-starter', role='button') Hackaton Starter »
